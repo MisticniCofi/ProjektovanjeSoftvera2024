@@ -1,7 +1,68 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\tanja\\source\\Vezbe06\\",
-  "Documents": [],
+  "WorkspaceRootPath": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|d:\\git\\projektovanjesoftvera2024\\vezbe06\\winforms\\usercontrols\\ucdodajosobu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|solutionrelative:winforms\\usercontrols\\ucdodajosobu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|d:\\git\\projektovanjesoftvera2024\\vezbe06\\winforms\\usercontrols\\ucdodajosobu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|solutionrelative:winforms\\usercontrols\\ucdodajosobu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|d:\\git\\projektovanjesoftvera2024\\vezbe06\\winforms\\utils\\gradutil.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|solutionrelative:winforms\\utils\\gradutil.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|d:\\git\\projektovanjesoftvera2024\\vezbe06\\winforms\\utils\\frmmode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|solutionrelative:winforms\\utils\\frmmode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|d:\\git\\projektovanjesoftvera2024\\vezbe06\\winforms\\graddialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|solutionrelative:winforms\\graddialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|d:\\git\\projektovanjesoftvera2024\\vezbe06\\winforms\\graddialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|solutionrelative:winforms\\graddialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|d:\\git\\projektovanjesoftvera2024\\vezbe06\\winforms\\graddialog.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|solutionrelative:winforms\\graddialog.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|d:\\git\\projektovanjesoftvera2024\\vezbe06\\winforms\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|solutionrelative:winforms\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|d:\\git\\projektovanjesoftvera2024\\vezbe06\\winforms\\frmlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|solutionrelative:winforms\\frmlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|d:\\git\\projektovanjesoftvera2024\\vezbe06\\winforms\\frmlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|solutionrelative:winforms\\frmlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|d:\\git\\projektovanjesoftvera2024\\vezbe06\\winforms\\frmlogin.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|solutionrelative:winforms\\frmlogin.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|d:\\git\\projektovanjesoftvera2024\\vezbe06\\winforms\\frmosobe.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|solutionrelative:winforms\\frmosobe.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|d:\\git\\projektovanjesoftvera2024\\vezbe06\\winforms\\frmglavna.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|solutionrelative:winforms\\frmglavna.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|d:\\git\\projektovanjesoftvera2024\\vezbe06\\winforms\\frmglavna.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|solutionrelative:winforms\\frmglavna.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|d:\\git\\projektovanjesoftvera2024\\vezbe06\\winforms\\frmglavna.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{6DD68E95-E56E-4CD5-BECB-15B1586BDED8}|WinForms\\WinForms.csproj|solutionrelative:winforms\\frmglavna.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,8 +70,97 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UCDodajOsobu.cs",
+              "DocumentMoniker": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\UserControls\\UCDodajOsobu.cs",
+              "RelativeDocumentMoniker": "WinForms\\UserControls\\UCDodajOsobu.cs",
+              "ToolTip": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\UserControls\\UCDodajOsobu.cs",
+              "RelativeToolTip": "WinForms\\UserControls\\UCDodajOsobu.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T15:07:22.852Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UCDodajOsobu.cs [Design]",
+              "DocumentMoniker": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\UserControls\\UCDodajOsobu.cs",
+              "RelativeDocumentMoniker": "WinForms\\UserControls\\UCDodajOsobu.cs",
+              "ToolTip": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\UserControls\\UCDodajOsobu.cs [Design]",
+              "RelativeToolTip": "WinForms\\UserControls\\UCDodajOsobu.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T15:07:18.447Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FrmMode.cs",
+              "DocumentMoniker": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\Utils\\FrmMode.cs",
+              "RelativeDocumentMoniker": "WinForms\\Utils\\FrmMode.cs",
+              "ToolTip": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\Utils\\FrmMode.cs",
+              "RelativeToolTip": "WinForms\\Utils\\FrmMode.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T15:07:13.287Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GradUtil.cs",
+              "DocumentMoniker": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\Utils\\GradUtil.cs",
+              "RelativeDocumentMoniker": "WinForms\\Utils\\GradUtil.cs",
+              "ToolTip": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\Utils\\GradUtil.cs",
+              "RelativeToolTip": "WinForms\\Utils\\GradUtil.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T15:07:12.462Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "GradDialog.cs",
+              "DocumentMoniker": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\GradDialog.cs",
+              "RelativeDocumentMoniker": "WinForms\\GradDialog.cs",
+              "ToolTip": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\GradDialog.cs",
+              "RelativeToolTip": "WinForms\\GradDialog.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T15:06:48.976Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "GradDialog.cs [Design]",
+              "DocumentMoniker": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\GradDialog.cs",
+              "RelativeDocumentMoniker": "WinForms\\GradDialog.cs",
+              "ToolTip": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\GradDialog.cs [Design]",
+              "RelativeToolTip": "WinForms\\GradDialog.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T15:06:46.446Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "GradDialog.Designer.cs",
+              "DocumentMoniker": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\GradDialog.Designer.cs",
+              "RelativeDocumentMoniker": "WinForms\\GradDialog.Designer.cs",
+              "ToolTip": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\GradDialog.Designer.cs",
+              "RelativeToolTip": "WinForms\\GradDialog.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T15:06:43.857Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
@@ -36,8 +186,106 @@
               "Name": "ST:0:0:{57d563b6-44a5-47df-85be-f4199ad6b651}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{e5c86464-96be-4d7c-9a8b-abcb3bbf5f92}"
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\Program.cs",
+              "RelativeDocumentMoniker": "WinForms\\Program.cs",
+              "ToolTip": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\Program.cs",
+              "RelativeToolTip": "WinForms\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T15:06:39.821Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "FrmLogin.cs",
+              "DocumentMoniker": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\FrmLogin.cs",
+              "RelativeDocumentMoniker": "WinForms\\FrmLogin.cs",
+              "ToolTip": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\FrmLogin.cs*",
+              "RelativeToolTip": "WinForms\\FrmLogin.cs*",
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwEAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T15:06:24.183Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "FrmLogin.cs [Design]",
+              "DocumentMoniker": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\FrmLogin.cs",
+              "RelativeDocumentMoniker": "WinForms\\FrmLogin.cs",
+              "ToolTip": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\FrmLogin.cs [Design]*",
+              "RelativeToolTip": "WinForms\\FrmLogin.cs [Design]*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T15:06:22.909Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "FrmLogin.Designer.cs",
+              "DocumentMoniker": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\FrmLogin.Designer.cs",
+              "RelativeDocumentMoniker": "WinForms\\FrmLogin.Designer.cs",
+              "ToolTip": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\FrmLogin.Designer.cs*",
+              "RelativeToolTip": "WinForms\\FrmLogin.Designer.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T15:06:16.728Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "FrmOsobe.Designer.cs",
+              "DocumentMoniker": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\FrmOsobe.Designer.cs",
+              "RelativeDocumentMoniker": "WinForms\\FrmOsobe.Designer.cs",
+              "ToolTip": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\FrmOsobe.Designer.cs",
+              "RelativeToolTip": "WinForms\\FrmOsobe.Designer.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T15:06:07.322Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "FrmGlavna.Designer.cs",
+              "DocumentMoniker": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\FrmGlavna.Designer.cs",
+              "RelativeDocumentMoniker": "WinForms\\FrmGlavna.Designer.cs",
+              "ToolTip": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\FrmGlavna.Designer.cs*",
+              "RelativeToolTip": "WinForms\\FrmGlavna.Designer.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T15:05:25.79Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "FrmGlavna.cs",
+              "DocumentMoniker": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\FrmGlavna.cs",
+              "RelativeDocumentMoniker": "WinForms\\FrmGlavna.cs",
+              "ToolTip": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\FrmGlavna.cs*",
+              "RelativeToolTip": "WinForms\\FrmGlavna.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T15:01:44.211Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "FrmGlavna.cs [Design]",
+              "DocumentMoniker": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\FrmGlavna.cs",
+              "RelativeDocumentMoniker": "WinForms\\FrmGlavna.cs",
+              "ToolTip": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\WinForms\\FrmGlavna.cs [Design]*",
+              "RelativeToolTip": "WinForms\\FrmGlavna.cs [Design]*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T13:52:58.116Z",
+              "EditorCaption": " [Design]"
             }
           ]
         }

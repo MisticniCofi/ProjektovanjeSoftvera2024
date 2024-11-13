@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InsertOsobaVratiId")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dcd90c1887db2a7d9bc5459639194796ba72ccd0")]
 [assembly: System.Reflection.AssemblyProductAttribute("InsertOsobaVratiId")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InsertOsobaVratiId")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

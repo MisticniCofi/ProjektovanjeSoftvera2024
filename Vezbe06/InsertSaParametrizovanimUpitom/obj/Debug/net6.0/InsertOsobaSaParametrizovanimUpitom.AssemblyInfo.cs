@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InsertOsobaSaParametrizovanimUpitom")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c398bca569580b66d8d3bb6b1d965798b94a6251")]
 [assembly: System.Reflection.AssemblyProductAttribute("InsertOsobaSaParametrizovanimUpitom")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InsertOsobaSaParametrizovanimUpitom")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,4 +1,7 @@
-﻿using System;
+﻿//vidi klase Grad i Osoba radi objasnjenja
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

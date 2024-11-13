@@ -1,4 +1,8 @@
-﻿using Microsoft.Data.SqlClient;
+﻿
+using BrokerBP = BrokerBazePodataka.BrokerBazePodataka;
+
+using Microsoft.Data.SqlClient;
+using Domen;
 
 namespace Primer01
 {
@@ -13,9 +17,12 @@ namespace Primer01
             SqlCommand command = connection.CreateCommand();
             command.CommandText = "insert into grad values (13456, 'Grad')";
 
+
+            //SQL komanda koja nije upit zato ide ExecuteNonQuery (IzvrsiNeUpit)
             command.ExecuteNonQuery();
 
             connection.Close();
+
         }
     }
 }

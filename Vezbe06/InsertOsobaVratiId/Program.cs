@@ -24,7 +24,12 @@ try
     cmd.Connection = conn;
     cmd.CommandText = $"insert into osoba output inserted.id values ('{o.Ime}', '{o.Prezime}', '{o.DatumRodjenja.ToString("yyyyMMdd HH:mm")}', '{o.Pol}', {o.Grad.Ptt})";
 
+    //ExecuteScalar sluzi za generisanje ID-a reda
+    //INSERT vraca jednu vrednost, a to je broj reda koji je upravo dodat (output inserted.id)
+    //ExecuteScalar nam vraca taj broj kao objekat
+    //objekat moramo kastovati
     long generatedId = (long)cmd.ExecuteScalar();
+    //provera da li je dobijen validan Id (da je veci od 0)
     if (generatedId > 0)
     {
         Console.WriteLine($"Osoba je uspesno sacuvana! Njen id je {generatedId}");

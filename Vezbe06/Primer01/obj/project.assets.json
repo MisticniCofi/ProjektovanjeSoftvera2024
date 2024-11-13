@@ -680,6 +680,30 @@
             "rid": "win"
           }
         }
+      },
+      "BrokerBazePodataka/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Domen": "1.0.0",
+          "Microsoft.Data.SqlClient": "5.2.2"
+        },
+        "compile": {
+          "bin/placeholder/BrokerBazePodataka.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BrokerBazePodataka.dll": {}
+        }
+      },
+      "Domen/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Domen.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Domen.dll": {}
+        }
       }
     }
   },
@@ -1876,32 +1900,38 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "BrokerBazePodataka/1.0.0": {
+      "type": "project",
+      "path": "../BrokerBazePodataka/BrokerBazePodataka.csproj",
+      "msbuildProject": "../BrokerBazePodataka/BrokerBazePodataka.csproj"
+    },
+    "Domen/1.0.0": {
+      "type": "project",
+      "path": "../Domen/Domen.csproj",
+      "msbuildProject": "../Domen/Domen.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "BrokerBazePodataka >= 1.0.0",
       "Microsoft.Data.SqlClient >= 5.2.2"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\tanja\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\SIMON\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tanja\\source\\Primer01\\InsertGrad.csproj",
+      "projectUniqueName": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\Primer01\\InsertGrad.csproj",
       "projectName": "InsertGrad",
-      "projectPath": "C:\\Users\\tanja\\source\\Primer01\\InsertGrad.csproj",
-      "packagesPath": "C:\\Users\\tanja\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\tanja\\source\\Primer01\\obj\\",
+      "projectPath": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\Primer01\\InsertGrad.csproj",
+      "packagesPath": "C:\\Users\\SIMON\\.nuget\\packages\\",
+      "outputPath": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\Primer01\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\tanja\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\SIMON\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1909,13 +1939,16 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\BrokerBazePodataka\\BrokerBazePodataka.csproj": {
+              "projectPath": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\BrokerBazePodataka\\BrokerBazePodataka.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -1949,6 +1982,24 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[6.0.35, 6.0.35]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[6.0.35, 6.0.35]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[6.0.35, 6.0.35]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[6.0.35, 6.0.35]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"

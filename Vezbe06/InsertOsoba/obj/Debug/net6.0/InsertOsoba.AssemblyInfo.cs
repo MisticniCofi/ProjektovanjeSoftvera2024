@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InsertOsoba")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c398bca569580b66d8d3bb6b1d965798b94a6251")]
 [assembly: System.Reflection.AssemblyProductAttribute("InsertOsoba")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InsertOsoba")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

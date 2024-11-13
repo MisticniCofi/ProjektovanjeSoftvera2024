@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "qP6xPVV/Jp0=",
+  "dgSpecHash": "j3QsHKEhRiI=",
   "success": true,
-  "projectFilePath": "C:\\Users\\tanja\\source\\Domen\\Domen.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "D:\\git\\ProjektovanjeSoftvera2024\\Vezbe06\\Domen\\Domen.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\SIMON\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.35\\microsoft.windowsdesktop.app.ref.6.0.35.nupkg.sha512",
+    "C:\\Users\\SIMON\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.35\\microsoft.netcore.app.ref.6.0.35.nupkg.sha512",
+    "C:\\Users\\SIMON\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.35\\microsoft.aspnetcore.app.ref.6.0.35.nupkg.sha512"
+  ],
   "logs": []
 }

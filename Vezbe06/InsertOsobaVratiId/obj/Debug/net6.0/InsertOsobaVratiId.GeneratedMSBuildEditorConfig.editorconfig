@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = InsertOsobaVratiId
-build_property.ProjectDir = C:\Users\tanja\source\InsertOsobaVratiId\
+build_property.ProjectDir = D:\git\ProjektovanjeSoftvera2024\Vezbe06\InsertOsobaVratiId\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
