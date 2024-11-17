@@ -20,7 +20,11 @@ namespace KorisnickiInterfejs
         public FormaSaPrevodima()
         {
             InitializeComponent();
+            this.napuniCb();
+        }
 
+        public void napuniCb()
+        {
             //ovde postoji mali problem
             //cbOdabirJezika.DataSource okida dogadja SelectedIndexChanged
             //i onda on pokusa da izvadi iz cbSrpskeReci reci ali ih ne moze naci
@@ -29,8 +33,6 @@ namespace KorisnickiInterfejs
 
             cbSrpskeReci.DataSource = broker.VratiSlogoveSrbRec();
             cbSrpskeReci.DisplayMember = "SrbNaziv";
-
-            
         }
 
         private void cbSrpskeReci_SelectedIndexChanged(object sender, EventArgs e)

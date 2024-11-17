@@ -17,14 +17,19 @@ namespace KorisnickiInterfejs
     {
         //promenljiva u koju cemo da stavimo idJezika
         private int idOdabranogJezika;
+
+        FormaSaPrevodima fsaprevodima;
         public DodajPrevod(FormaSaPrevodima fm)
         {
             InitializeComponent();
 
             //prosledili smo putem konstruktora formu koja je instancirala trenutnu formu
             //na formi sa prevodima se nalazi informacija o jeziku
-            Jezik odabranJezik = (Jezik)fm.cbOdabirJezika.SelectedValue;
+            fsaprevodima = fm;
+            //cb u klasi FormaSaPrevodima mora da bude public da bi mu se moglo pristupiti
+            Jezik odabranJezik = (Jezik)fsaprevodima.cbOdabirJezika.SelectedValue;
             this.idOdabranogJezika = odabranJezik.JezikId;
+           
         }
 
         private void btnDodajPrevodDrugaForma_Click(object sender, EventArgs e)
@@ -35,7 +40,8 @@ namespace KorisnickiInterfejs
                 {
                     //zatvara formu
                     this.Close();
-                    //moramo ici return jer funkcija nastavlja da se izvrsava nezavisno od forme, tako da i yes i no skladiste podatke u bazi
+                    //moramo ici return jer funkcija nastavlja da se izvrsava nezavisno od forme,
+                    //tako da odabir i yes i no opcije skladisti podatke u bazi
                     return;
                 }
             BrokerBazePodataka broker = new BrokerBazePodataka();
@@ -43,7 +49,14 @@ namespace KorisnickiInterfejs
             string prevod = txtPrevodReci.Text;
             
             broker.DodajPrevedenuRec(rec, prevod, idOdabranogJezika);
-            
+
+            //nakon sto doda rec, zelimo da se combobox sa srpskim recima automatski azurira i ponudi i tu novu rec,
+            //zato treba da ponovo napunimo cb
+            //datagridview svakako na svaki selectedindexchange vraca sve iz baze, njega ne moramo da diramo
+            fsaprevodima.napuniCb();
+
+
+
         }
     }
 }

@@ -114,7 +114,8 @@
         #endregion
 
         private System.Windows.Forms.ComboBox cbSrpskeReci;
-        private System.Windows.Forms.DataGridView dgvPrevedeneReci;
+        //moraju public jer im pristupamo iz klase DodajPrevod
+        public System.Windows.Forms.DataGridView dgvPrevedeneReci;
         public System.Windows.Forms.ComboBox cbOdabirJezika;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
