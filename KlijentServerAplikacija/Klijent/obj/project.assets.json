@@ -1,0 +1,115 @@
+{
+  "version": 3,
+  "targets": {
+    "net8.0": {
+      "Domen/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/Domen.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Domen.dll": {}
+        }
+      },
+      "PomocneFunkcije/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/PomocneFunkcije.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PomocneFunkcije.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Domen/1.0.0": {
+      "type": "project",
+      "path": "../Domen/Domen.csproj",
+      "msbuildProject": "../Domen/Domen.csproj"
+    },
+    "PomocneFunkcije/1.0.0": {
+      "type": "project",
+      "path": "../PomocneFunkcije/PomocneFunkcije.csproj",
+      "msbuildProject": "../PomocneFunkcije/PomocneFunkcije.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net8.0": [
+      "Domen >= 1.0.0",
+      "PomocneFunkcije >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\SIMON\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\git\\ProjektovanjeSoftvera2024\\KlijentServerAplikacija\\Klijent\\Klijent.csproj",
+      "projectName": "Klijent",
+      "projectPath": "D:\\git\\ProjektovanjeSoftvera2024\\KlijentServerAplikacija\\Klijent\\Klijent.csproj",
+      "packagesPath": "C:\\Users\\SIMON\\.nuget\\packages\\",
+      "outputPath": "D:\\git\\ProjektovanjeSoftvera2024\\KlijentServerAplikacija\\Klijent\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\SIMON\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net8.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "projectReferences": {
+            "D:\\git\\ProjektovanjeSoftvera2024\\KlijentServerAplikacija\\Domen\\Domen.csproj": {
+              "projectPath": "D:\\git\\ProjektovanjeSoftvera2024\\KlijentServerAplikacija\\Domen\\Domen.csproj"
+            },
+            "D:\\git\\ProjektovanjeSoftvera2024\\KlijentServerAplikacija\\PomocneFunkcije\\PomocneFunkcije.csproj": {
+              "projectPath": "D:\\git\\ProjektovanjeSoftvera2024\\KlijentServerAplikacija\\PomocneFunkcije\\PomocneFunkcije.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      }
+    },
+    "frameworks": {
+      "net8.0": {
+        "targetAlias": "net8.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
