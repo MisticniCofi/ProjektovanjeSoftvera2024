@@ -1,0 +1,17 @@
+C:\Users\tanja\source\repos\Vezne04\WinForms\bin\Debug\net8.0-windows\WinForms.exe
+C:\Users\tanja\source\repos\Vezne04\WinForms\bin\Debug\net8.0-windows\WinForms.deps.json
+C:\Users\tanja\source\repos\Vezne04\WinForms\bin\Debug\net8.0-windows\WinForms.runtimeconfig.json
+C:\Users\tanja\source\repos\Vezne04\WinForms\bin\Debug\net8.0-windows\WinForms.dll
+C:\Users\tanja\source\repos\Vezne04\WinForms\bin\Debug\net8.0-windows\WinForms.pdb
+C:\Users\tanja\source\repos\Vezne04\WinForms\obj\Debug\net8.0-windows\WinForms.FrmGlavna.resources
+C:\Users\tanja\source\repos\Vezne04\WinForms\obj\Debug\net8.0-windows\WinForms.FrmOsobe.resources
+C:\Users\tanja\source\repos\Vezne04\WinForms\obj\Debug\net8.0-windows\WinForms.csproj.GenerateResource.cache
+C:\Users\tanja\source\repos\Vezne04\WinForms\obj\Debug\net8.0-windows\WinForms.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\tanja\source\repos\Vezne04\WinForms\obj\Debug\net8.0-windows\WinForms.AssemblyInfoInputs.cache
+C:\Users\tanja\source\repos\Vezne04\WinForms\obj\Debug\net8.0-windows\WinForms.AssemblyInfo.cs
+C:\Users\tanja\source\repos\Vezne04\WinForms\obj\Debug\net8.0-windows\WinForms.csproj.CoreCompileInputs.cache
+C:\Users\tanja\source\repos\Vezne04\WinForms\obj\Debug\net8.0-windows\WinForms.dll
+C:\Users\tanja\source\repos\Vezne04\WinForms\obj\Debug\net8.0-windows\refint\WinForms.dll
+C:\Users\tanja\source\repos\Vezne04\WinForms\obj\Debug\net8.0-windows\WinForms.pdb
+C:\Users\tanja\source\repos\Vezne04\WinForms\obj\Debug\net8.0-windows\WinForms.genruntimeconfig.cache
+C:\Users\tanja\source\repos\Vezne04\WinForms\obj\Debug\net8.0-windows\ref\WinForms.dll
