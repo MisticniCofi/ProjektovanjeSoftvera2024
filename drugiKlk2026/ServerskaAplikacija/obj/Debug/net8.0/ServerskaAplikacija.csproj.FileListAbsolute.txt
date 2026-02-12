@@ -1,0 +1,15 @@
+D:\git\ProjektovanjeSoftvera2024\drugiKlk2026\ServerskaAplikacija\bin\Debug\net8.0\ServerskaAplikacija.exe
+D:\git\ProjektovanjeSoftvera2024\drugiKlk2026\ServerskaAplikacija\bin\Debug\net8.0\ServerskaAplikacija.deps.json
+D:\git\ProjektovanjeSoftvera2024\drugiKlk2026\ServerskaAplikacija\bin\Debug\net8.0\ServerskaAplikacija.runtimeconfig.json
+D:\git\ProjektovanjeSoftvera2024\drugiKlk2026\ServerskaAplikacija\bin\Debug\net8.0\ServerskaAplikacija.dll
+D:\git\ProjektovanjeSoftvera2024\drugiKlk2026\ServerskaAplikacija\bin\Debug\net8.0\ServerskaAplikacija.pdb
+D:\git\ProjektovanjeSoftvera2024\drugiKlk2026\ServerskaAplikacija\obj\Debug\net8.0\ServerskaAplikacija.GeneratedMSBuildEditorConfig.editorconfig
+D:\git\ProjektovanjeSoftvera2024\drugiKlk2026\ServerskaAplikacija\obj\Debug\net8.0\ServerskaAplikacija.AssemblyInfoInputs.cache
+D:\git\ProjektovanjeSoftvera2024\drugiKlk2026\ServerskaAplikacija\obj\Debug\net8.0\ServerskaAplikacija.AssemblyInfo.cs
+D:\git\ProjektovanjeSoftvera2024\drugiKlk2026\ServerskaAplikacija\obj\Debug\net8.0\ServerskaAplikacija.csproj.CoreCompileInputs.cache
+D:\git\ProjektovanjeSoftvera2024\drugiKlk2026\ServerskaAplikacija\obj\Debug\net8.0\ServerskaAplikacija.sourcelink.json
+D:\git\ProjektovanjeSoftvera2024\drugiKlk2026\ServerskaAplikacija\obj\Debug\net8.0\ServerskaAplikacija.dll
+D:\git\ProjektovanjeSoftvera2024\drugiKlk2026\ServerskaAplikacija\obj\Debug\net8.0\refint\ServerskaAplikacija.dll
+D:\git\ProjektovanjeSoftvera2024\drugiKlk2026\ServerskaAplikacija\obj\Debug\net8.0\ServerskaAplikacija.pdb
+D:\git\ProjektovanjeSoftvera2024\drugiKlk2026\ServerskaAplikacija\obj\Debug\net8.0\ServerskaAplikacija.genruntimeconfig.cache
+D:\git\ProjektovanjeSoftvera2024\drugiKlk2026\ServerskaAplikacija\obj\Debug\net8.0\ref\ServerskaAplikacija.dll
