@@ -1,0 +1,1044 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TCP Server Sockets — OS/Network Level Visual</title>
+  <style>
+    :root{
+      --bg:#0b0f19;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --ok:#22c55e;
+      --warn:#f59e0b;
+      --bad:#ef4444;
+      --accent:#60a5fa;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      background: radial-gradient(1200px 700px at 20% 0%, #0f1b3a 0%, var(--bg) 55%) fixed;
+      color:var(--text);
+    }
+    header{
+      padding:18px 18px 10px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    header h1{
+      margin:0 0 6px 0;
+      font-size:18px;
+      letter-spacing:.2px;
+    }
+    header p{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.4;
+      max-width:1100px;
+    }
+
+    .wrap{
+      padding:16px;
+      display:grid;
+      grid-template-columns: 380px 1fr;
+      gap:14px;
+      max-width: 1450px;
+      margin:0 auto;
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:14px;
+      box-shadow: 0 10px 28px rgba(0,0,0,.35);
+      overflow:hidden;
+    }
+    .card h2{
+      margin:0;
+      padding:12px 14px;
+      font-size:13px;
+      letter-spacing:.2px;
+      border-bottom:1px solid rgba(255,255,255,.07);
+      background: rgba(0,0,0,.18);
+      color: #f3f4f6;
+    }
+    .card .body{
+      padding:12px 14px 14px;
+    }
+
+    .btnrow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+    button{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      padding:8px 10px;
+      border-radius:10px;
+      cursor:pointer;
+      font-size:12px;
+      letter-spacing:.2px;
+    }
+    button:hover{ background: rgba(255,255,255,.09); }
+    button:disabled{
+      opacity:.45;
+      cursor:not-allowed;
+    }
+
+    .row{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin:10px 0 8px;
+      padding:10px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:12px;
+      background: rgba(0,0,0,.14);
+    }
+    label{
+      font-size:12px;
+      color:#cbd5e1;
+    }
+    select, input[type="range"]{
+      accent-color: var(--accent);
+    }
+    select{
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:10px;
+      padding:7px 9px;
+      font-size:12px;
+      font-family: var(--mono);
+    }
+    .small{
+      font-size:11px;
+      color: var(--muted);
+      font-family: var(--mono);
+    }
+
+    .hint{
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.35;
+      margin:0 0 10px 0;
+    }
+
+    .stage{
+      position:relative;
+      min-height: 650px;
+      background:
+        radial-gradient(900px 600px at 80% 20%, rgba(96,165,250,.12), transparent 55%),
+        linear-gradient(180deg, rgba(15,23,42,.55), rgba(15,23,42,.25));
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:14px;
+      padding:12px;
+      overflow:hidden;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1.1fr 1.2fr;
+      gap:12px;
+      align-items:start;
+    }
+
+    .zone{
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:12px;
+      padding:10px;
+      min-height: 545px;
+      position:relative;
+    }
+    .zone .ztitle{
+      font-size:12px;
+      color:#cbd5e1;
+      margin:0 0 8px 0;
+      letter-spacing:.2px;
+    }
+
+    .box{
+      border:1px solid rgba(255,255,255,.1);
+      background: rgba(17,24,39,.65);
+      border-radius:12px;
+      padding:10px;
+      margin-bottom:10px;
+      position:relative;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .box .title{
+      font-size:12px;
+      font-weight:600;
+      margin-bottom:6px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .box .meta{
+      font-family:var(--mono);
+      font-size:11px;
+      color:#cbd5e1;
+      line-height:1.35;
+      white-space:pre-wrap;
+    }
+    .tag{
+      font-family:var(--mono);
+      font-size:10px;
+      padding:3px 7px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color:#e5e7eb;
+    }
+
+    .hl{
+      border-color: rgba(96,165,250,.8) !important;
+      box-shadow: 0 0 0 3px rgba(96,165,250,.18);
+      transform: translateY(-1px);
+    }
+    .ok{ border-color: rgba(34,197,94,.55) !important; box-shadow:0 0 0 3px rgba(34,197,94,.14); }
+    .warn{ border-color: rgba(245,158,11,.6) !important; box-shadow:0 0 0 3px rgba(245,158,11,.14); }
+    .bad{ border-color: rgba(239,68,68,.65) !important; box-shadow:0 0 0 3px rgba(239,68,68,.14); }
+
+    /* Clients list */
+    .clients{
+      margin-top:6px;
+      border-top:1px solid rgba(255,255,255,.08);
+      padding-top:10px;
+      max-height: 260px;
+      overflow:auto;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .clientRow{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.14);
+      border-radius:12px;
+      padding:9px 10px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+      transition: border-color .18s ease, box-shadow .18s ease;
+    }
+    .clientRow.sel{
+      border-color: rgba(96,165,250,.65);
+      box-shadow: 0 0 0 3px rgba(96,165,250,.14);
+    }
+    .clientLeft{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      min-width: 0;
+    }
+    .clientName{
+      font-family: var(--mono);
+      font-size:11px;
+      color:#e5e7eb;
+    }
+    .clientMeta{
+      font-family: var(--mono);
+      font-size:10.5px;
+      color:#cbd5e1;
+      white-space:pre-wrap;
+      line-height:1.35;
+    }
+    .clientRight{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:6px;
+      flex:0 0 auto;
+    }
+    .tinyTag{
+      font-family: var(--mono);
+      font-size:10px;
+      padding:3px 7px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color:#e5e7eb;
+    }
+    .tinyTag.ok{ border-color: rgba(34,197,94,.55); }
+    .tinyTag.warn{ border-color: rgba(245,158,11,.6); }
+    .tinyTag.bad{ border-color: rgba(239,68,68,.65); }
+
+    /* Timeline lanes */
+    .lanes{
+      margin-top:12px;
+      border-top:1px solid rgba(255,255,255,.08);
+      padding-top:12px;
+      display:grid;
+      grid-template-columns: 120px 1fr;
+      gap:10px;
+    }
+    .laneLabels{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      padding-top:6px;
+    }
+    .laneLabels div{
+      font-family:var(--mono);
+      font-size:11px;
+      color:#cbd5e1;
+      padding:6px 8px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:10px;
+      background: rgba(0,0,0,.16);
+    }
+    .laneTrack{
+      position:relative;
+      height: 190px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:12px;
+      background: rgba(0,0,0,.16);
+      overflow:hidden;
+    }
+    .laneLine{
+      position:absolute;
+      left:0; right:0;
+      height:1px;
+      background: rgba(255,255,255,.10);
+    }
+    .laneLine:nth-child(1){ top:46px; }
+    .laneLine:nth-child(2){ top:92px; }
+    .laneLine:nth-child(3){ top:138px; }
+
+    .event{
+      position:absolute;
+      top:0;
+      height:34px;
+      min-width: 140px;
+      padding:7px 10px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(96,165,250,.12);
+      color:#e5e7eb;
+      font-size:11px;
+      font-family:var(--mono);
+      white-space:nowrap;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      transform: translateX(-160px);
+      opacity:0;
+      transition: transform .45s ease, opacity .45s ease, background .2s ease;
+    }
+    .event.show{ transform: translateX(10px); opacity:1; }
+    .event.ok{ background: rgba(34,197,94,.14); }
+    .event.warn{ background: rgba(245,158,11,.16); }
+    .event.bad{ background: rgba(239,68,68,.16); }
+
+    .dot{
+      width:10px; height:10px; border-radius:50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(96,165,250,.18);
+      flex:0 0 auto;
+    }
+    .dot.ok{ background: var(--ok); box-shadow: 0 0 0 4px rgba(34,197,94,.16); }
+    .dot.warn{ background: var(--warn); box-shadow: 0 0 0 4px rgba(245,158,11,.16); }
+    .dot.bad{ background: var(--bad); box-shadow: 0 0 0 4px rgba(239,68,68,.16); }
+
+    /* Packet animation */
+    .packet{
+      position:absolute;
+      width:10px; height:10px;
+      border-radius:50%;
+      background: #93c5fd;
+      box-shadow: 0 0 0 4px rgba(147,197,253,.14);
+      opacity:0;
+      pointer-events:none;
+    }
+    @keyframes fly {
+      0% { transform: translate(var(--x1), var(--y1)); opacity:0; }
+      10%{ opacity:1; }
+      90%{ opacity:1; }
+      100%{ transform: translate(var(--x2), var(--y2)); opacity:0; }
+    }
+
+    /* Log */
+    .log{
+      margin-top:10px;
+      height: 250px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:12px;
+      background: rgba(0,0,0,.16);
+      padding:10px;
+      font-family:var(--mono);
+      font-size:11px;
+      color:#e5e7eb;
+      line-height:1.45;
+    }
+    .log .t{ color:#cbd5e1; }
+    .log .k{ color:#93c5fd; }
+    .log .e{ color:#fca5a5; }
+    .log .g{ color:#86efac; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>TCP Server (OS/Kernel Mental Model) — Interactive Visual</h1>
+  <p>Now supports multiple clients and a slower pace slider. AcceptThread blocks inside the kernel on <span style="font-family:var(--mono);color:#cbd5e1">accept()</span>; each accepted client has its own handler blocked on <span style="font-family:var(--mono);color:#cbd5e1">recv()</span> until bytes arrive.</p>
+</header>
+
+<div class="wrap">
+  <div class="card">
+    <h2>Controls</h2>
+    <div class="body">
+      <div class="btnrow">
+        <button id="btnStart">Start server</button>
+        <button id="btnConnect" disabled>Client connects</button>
+        <button id="btnSend" disabled>Client sends data</button>
+        <button id="btnStop" disabled>Stop server</button>
+        <button id="btnReset">Reset</button>
+      </div>
+
+      <div class="row">
+        <label for="selClient">Send data as:</label>
+        <select id="selClient"></select>
+        <span class="small" id="selClientHint"></span>
+      </div>
+
+      <div class="row">
+        <label for="pace">Pace (higher = slower):</label>
+        <input id="pace" type="range" min="0.8" max="4.0" step="0.1" value="2.2" />
+        <span class="small" id="paceLabel"></span>
+      </div>
+
+      <p class="hint">
+        Tip: Click “Client connects” several times. Each accepted client appears on the right under “Connected clients”.
+        “Client sends data” affects whichever client you select in the dropdown.
+      </p>
+
+      <div class="log" id="log"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Diagram + Timeline</h2>
+    <div class="body">
+      <div class="stage" id="stage">
+        <div class="grid">
+          <!-- CLIENT / INTERNET -->
+          <div class="zone">
+            <p class="ztitle">Client / Internet</p>
+
+            <div class="box" id="boxClient">
+              <div class="title">
+                <span>Last active client</span>
+                <span class="tag" id="tagClient">IDLE</span>
+              </div>
+              <div class="meta" id="metaClient">socket(): not connected
+connect(): not started</div>
+            </div>
+
+            <div class="box" id="boxPackets">
+              <div class="title">
+                <span>Packets (conceptual)</span>
+                <span class="tag" id="tagPackets">—</span>
+              </div>
+              <div class="meta" id="metaPackets">SYN / SYN-ACK / ACK
+then data bytes</div>
+            </div>
+          </div>
+
+          <!-- KERNEL -->
+          <div class="zone">
+            <p class="ztitle">Kernel (OS networking stack)</p>
+
+            <div class="box" id="boxTcp">
+              <div class="title">
+                <span>TCP state (last handshake)</span>
+                <span class="tag" id="tagTcp">CLOSED</span>
+              </div>
+              <div class="meta" id="metaTcp">handshake: not started</div>
+            </div>
+
+            <div class="box" id="boxQueue">
+              <div class="title">
+                <span>Accept queue</span>
+                <span class="tag" id="tagQueue">0</span>
+              </div>
+              <div class="meta" id="metaQueue">established connections
+waiting to be accepted</div>
+            </div>
+
+            <div class="box" id="boxRecvBuf">
+              <div class="title">
+                <span>Recv buffer (selected client)</span>
+                <span class="tag" id="tagBuf">EMPTY</span>
+              </div>
+              <div class="meta" id="metaBuf">bytes arrive here first
+recv() copies from here</div>
+            </div>
+          </div>
+
+          <!-- SERVER PROCESS -->
+          <div class="zone">
+            <p class="ztitle">Server process</p>
+
+            <div class="box" id="boxListen">
+              <div class="title">
+                <span>Listening socket (“door”)</span>
+                <span class="tag" id="tagListen">CLOSED</span>
+              </div>
+              <div class="meta" id="metaListen">bind(): —
+listen(): —
+data: NO (never)</div>
+            </div>
+
+            <div class="box" id="boxAcceptThread">
+              <div class="title">
+                <span>AcceptThread</span>
+                <span class="tag" id="tagAccept">NOT RUNNING</span>
+              </div>
+              <div class="meta" id="metaAccept">accept(): —</div>
+            </div>
+
+            <div class="box" id="boxClients">
+              <div class="title">
+                <span>Connected clients (“conversations”)</span>
+                <span class="tag" id="tagClients">0</span>
+              </div>
+              <div class="meta" id="metaClients">Each accepted connection becomes:
+- a connected socket
+- a handler thread blocked on recv()</div>
+
+              <div class="clients" id="clientsList"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lanes">
+          <div class="laneLabels">
+            <div>UI Thread</div>
+            <div>AcceptThread</div>
+            <div>Kernel</div>
+            <div>ClientHandler</div>
+          </div>
+          <div class="laneTrack" id="laneTrack">
+            <div class="laneLine"></div>
+            <div class="laneLine"></div>
+            <div class="laneLine"></div>
+
+            <div class="event" id="evUI" style="top:14px;"><span class="dot"></span><span id="evUIText">—</span></div>
+            <div class="event" id="evAccept" style="top:60px;"><span class="dot"></span><span id="evAcceptText">—</span></div>
+            <div class="event" id="evKernel" style="top:106px;"><span class="dot"></span><span id="evKernelText">—</span></div>
+            <div class="event" id="evHandler" style="top:152px;"><span class="dot"></span><span id="evHandlerText">—</span></div>
+          </div>
+        </div>
+
+        <div class="packet" id="packet"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ------------------ State ------------------
+  const S = {
+    server: "stopped",   // stopped | listening | stopping
+    accept: "off",       // off | blocked | ended
+    queue: 0,
+    tcp: "CLOSED",       // CLOSED | SYN | ESTABLISHED (for last handshake)
+    clients: [],         // {id, status:alive|closed, handler:blocked_recv|running|ended, recvBuf:int}
+    nextId: 1,
+    selectedClientId: null,
+    busy: false,
+    pace: 2.2,           // >1 means slower
+    stoppingFlag: false
+  };
+
+  // ------------------ Elements ------------------
+  const el = id => document.getElementById(id);
+  const logEl = el("log");
+  const stage = el("stage");
+  const packet = el("packet");
+
+  const btnStart = el("btnStart");
+  const btnConnect = el("btnConnect");
+  const btnSend = el("btnSend");
+  const btnStop = el("btnStop");
+  const btnReset = el("btnReset");
+
+  const paceSlider = el("pace");
+  const paceLabel  = el("paceLabel");
+
+  const selClient = el("selClient");
+  const selClientHint = el("selClientHint");
+
+  const boxClient = el("boxClient");
+  const boxTcp = el("boxTcp");
+  const boxQueue = el("boxQueue");
+  const boxRecvBuf = el("boxRecvBuf");
+  const boxListen = el("boxListen");
+  const boxAccept = el("boxAcceptThread");
+  const boxClients = el("boxClients");
+
+  const tagClient = el("tagClient");
+  const tagTcp = el("tagTcp");
+  const tagQueue = el("tagQueue");
+  const tagBuf = el("tagBuf");
+  const tagListen = el("tagListen");
+  const tagAccept = el("tagAccept");
+  const tagClients = el("tagClients");
+
+  const metaClient = el("metaClient");
+  const metaTcp = el("metaTcp");
+  const metaQueue = el("metaQueue");
+  const metaBuf = el("metaBuf");
+  const metaListen = el("metaListen");
+  const metaAccept = el("metaAccept");
+
+  const clientsList = el("clientsList");
+
+  const ev = {
+    ui: el("evUI"),
+    accept: el("evAccept"),
+    kernel: el("evKernel"),
+    handler: el("evHandler"),
+    uiText: el("evUIText"),
+    acceptText: el("evAcceptText"),
+    kernelText: el("evKernelText"),
+    handlerText: el("evHandlerText")
+  };
+
+  // ------------------ Helpers ------------------
+  function nowStamp(){
+    const d = new Date();
+    const hh = String(d.getHours()).padStart(2,"0");
+    const mm = String(d.getMinutes()).padStart(2,"0");
+    const ss = String(d.getSeconds()).padStart(2,"0");
+    return `${hh}:${mm}:${ss}`;
+  }
+
+  function log(line, cls="t"){
+    const div = document.createElement("div");
+    div.innerHTML = `<span class="${cls}">[${nowStamp()}]</span> ${line}`;
+    logEl.appendChild(div);
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+
+  function clearHL(){
+    [boxClient,boxTcp,boxQueue,boxRecvBuf,boxListen,boxAccept,boxClients].forEach(b=>{
+      b.classList.remove("hl","ok","warn","bad");
+    });
+  }
+
+  function flash(box, kind="hl"){
+    box.classList.add(kind);
+    setTimeout(()=> box.classList.remove(kind), Math.round(650*S.pace));
+  }
+
+  function setEvent(which, text, kind=""){
+    const e = ev[which];
+    const t = ev[which+"Text"];
+
+    e.classList.remove("ok","warn","bad","show");
+    e.querySelector(".dot").classList.remove("ok","warn","bad");
+
+    if(kind) { e.classList.add(kind); e.querySelector(".dot").classList.add(kind); }
+    t.textContent = text;
+
+    void e.offsetWidth;
+    e.classList.add("show");
+  }
+
+  function animatePacket(fromBox, toBox){
+    const r1 = fromBox.getBoundingClientRect();
+    const r2 = toBox.getBoundingClientRect();
+    const rs = stage.getBoundingClientRect();
+    const x1 = (r1.left + r1.right)/2 - rs.left - 5;
+    const y1 = (r1.top + r1.bottom)/2 - rs.top - 5;
+    const x2 = (r2.left + r2.right)/2 - rs.left - 5;
+    const y2 = (r2.top + r2.bottom)/2 - rs.top - 5;
+
+    packet.style.setProperty("--x1", `${x1}px`);
+    packet.style.setProperty("--y1", `${y1}px`);
+    packet.style.setProperty("--x2", `${x2}px`);
+    packet.style.setProperty("--y2", `${y2}px`);
+
+    const dur = Math.round(900 * S.pace);
+    packet.style.animation = "none";
+    void packet.offsetWidth;
+    packet.style.animation = `fly ${dur}ms ease`;
+  }
+
+  function sleep(baseMs){
+    return new Promise(r => setTimeout(r, Math.round(baseMs * S.pace)));
+  }
+
+  function selectedClient(){
+    return S.clients.find(c => c.id === S.selectedClientId) || null;
+  }
+
+  function setSelected(id){
+    S.selectedClientId = id;
+    refresh();
+  }
+
+  function renderClientDropdown(){
+    selClient.innerHTML = "";
+    if(S.clients.length === 0){
+      const opt = document.createElement("option");
+      opt.value = "";
+      opt.textContent = "— (no clients)";
+      selClient.appendChild(opt);
+      selClient.disabled = true;
+      selClientHint.textContent = "";
+      return;
+    }
+    selClient.disabled = false;
+    for(const c of S.clients){
+      const opt = document.createElement("option");
+      opt.value = String(c.id);
+      opt.textContent = `Client #${c.id}`;
+      selClient.appendChild(opt);
+    }
+    if(S.selectedClientId == null){
+      S.selectedClientId = S.clients[S.clients.length-1].id;
+    }
+    selClient.value = String(S.selectedClientId);
+    const sc = selectedClient();
+    selClientHint.textContent = sc ? `(handler: ${sc.handler}, buf: ${sc.recvBuf} bytes)` : "";
+  }
+
+  function renderClientsList(){
+    clientsList.innerHTML = "";
+    for(const c of S.clients){
+      const row = document.createElement("div");
+      row.className = "clientRow" + (c.id === S.selectedClientId ? " sel" : "");
+      row.addEventListener("click", ()=> setSelected(c.id));
+
+      const left = document.createElement("div");
+      left.className = "clientLeft";
+      const name = document.createElement("div");
+      name.className = "clientName";
+      name.textContent = `Client #${c.id}`;
+      const meta = document.createElement("div");
+      meta.className = "clientMeta";
+      meta.textContent =
+`socket: ${c.status.toUpperCase()}
+handler: ${c.handler}
+recvBuf: ${c.recvBuf} bytes`;
+      left.appendChild(name);
+      left.appendChild(meta);
+
+      const right = document.createElement("div");
+      right.className = "clientRight";
+
+      const tag = document.createElement("div");
+      tag.className = "tinyTag " + (c.status === "alive" ? "ok" : "bad");
+      tag.textContent = c.status === "alive" ? "ALIVE" : "CLOSED";
+
+      const htag = document.createElement("div");
+      const hk = c.handler === "blocked_recv" ? "warn" : (c.handler === "running" ? "ok" : "bad");
+      htag.className = "tinyTag " + hk;
+      htag.textContent = c.handler;
+
+      right.appendChild(tag);
+      right.appendChild(htag);
+
+      row.appendChild(left);
+      row.appendChild(right);
+      clientsList.appendChild(row);
+    }
+  }
+
+  // ------------------ Refresh UI ------------------
+  function refresh(){
+    // Pace label
+    paceLabel.textContent = `${S.pace.toFixed(1)}×`;
+
+    // Buttons
+    btnStart.disabled = (S.server !== "stopped") || S.busy;
+    btnConnect.disabled = !(S.server === "listening" && S.accept === "blocked") || S.busy;
+    const sc = selectedClient();
+    btnSend.disabled = !(sc && sc.status === "alive" && sc.handler === "blocked_recv") || S.busy;
+    btnStop.disabled = !(S.server === "listening" || S.server === "stopping") || S.busy;
+
+    // Client (we show "last active client" from last action, not all)
+    tagClient.textContent = (S.tcp === "ESTABLISHED") ? "CONNECTED" : "IDLE";
+    metaClient.textContent =
+      (S.tcp === "ESTABLISHED")
+        ? "socket(): connected\nsend(): available\nrecv(): available"
+        : "socket(): not connected\nconnect(): not started";
+
+    // Kernel
+    tagTcp.textContent = S.tcp;
+    metaTcp.textContent =
+      (S.tcp === "CLOSED") ? "handshake: not started"
+      : (S.tcp === "SYN") ? "handshake: in progress (SYN/SYN-ACK/ACK)"
+      : "handshake: complete (connection established)";
+
+    tagQueue.textContent = String(S.queue);
+    metaQueue.textContent = "established connections\nwaiting to be accepted";
+
+    // Selected client's recv buffer
+    if(sc){
+      tagBuf.textContent = sc.recvBuf > 0 ? `${sc.recvBuf} bytes` : "EMPTY";
+      metaBuf.textContent = "bytes arrive here first\nrecv() copies from here";
+    } else {
+      tagBuf.textContent = "EMPTY";
+      metaBuf.textContent = "select a client to view its\nrecv buffer state";
+    }
+
+    // Server listen socket
+    tagListen.textContent = (S.server === "listening") ? "LISTENING" :
+                             (S.server === "stopping") ? "CLOSING" : "CLOSED";
+    metaListen.textContent =
+      (S.server === "listening")
+        ? "bind(): DONE\nlisten(): DONE\ndata: NO (never)"
+        : "bind(): —\nlisten(): —\ndata: NO (never)";
+
+    // Accept thread
+    tagAccept.textContent =
+      (S.accept === "off") ? "NOT RUNNING" :
+      (S.accept === "blocked") ? "BLOCKED" : "ENDED";
+    metaAccept.textContent =
+      (S.accept === "blocked") ? "accept(): BLOCKED in kernel"
+      : (S.accept === "ended") ? "accept(): exited loop"
+      : "accept(): —";
+
+    // Clients list
+    tagClients.textContent = String(S.clients.length);
+    renderClientDropdown();
+    renderClientsList();
+  }
+
+  // ------------------ Actions ------------------
+  async function startServer(){
+    if(S.busy) return;
+    S.busy = true;
+    clearHL();
+
+    S.server = "listening";
+    S.accept = "blocked";
+    S.queue = 0;
+    S.tcp = "CLOSED";
+    S.stoppingFlag = false;
+
+    flash(boxListen, "ok");
+    flash(boxAccept, "warn");
+
+    setEvent("ui", "Start: bind()+listen()", "ok");
+    setEvent("accept", "accept() called → blocks", "warn");
+    setEvent("kernel", "Port listening; accept-queue empty", "warn");
+    setEvent("handler", "—");
+
+    log('<span class="g">Start</span>: server bound + listening socket active.');
+    log('AcceptThread enters loop and calls <span class="k">accept()</span> → blocks in kernel.', "t");
+
+    await sleep(350);
+    S.busy = false;
+    refresh();
+  }
+
+  async function clientConnect(){
+    if(S.busy) return;
+    if(!(S.server === "listening" && S.accept === "blocked")) return;
+
+    S.busy = true;
+    clearHL();
+
+    const newId = S.nextId++;
+    // Show handshake for "last active client"
+    S.tcp = "SYN";
+    flash(boxClient, "hl");
+    flash(boxTcp, "hl");
+
+    setEvent("kernel", `Handshake begins (Client #${newId})`, "warn");
+    log(`Client #${newId} calls <span class="k">connect()</span>: TCP handshake starts (SYN → SYN-ACK → ACK).`);
+
+    animatePacket(boxClient, boxTcp);
+    refresh();
+    await sleep(900);
+
+    // Established, placed into accept queue
+    S.tcp = "ESTABLISHED";
+    S.queue += 1;
+
+    flash(boxQueue, "ok");
+    setEvent("kernel", `Connection established → queued (Client #${newId})`, "ok");
+    log(`Kernel: Client #${newId} established. It sits in the <span class="k">accept queue</span> until accepted.`, "t");
+
+    refresh();
+    await sleep(650);
+
+    // Accept pops one connection (we model it immediately, because accept thread is blocked)
+    S.queue -= 1;
+
+    // Create actual server-side connected client entry
+    const c = { id: newId, status: "alive", handler: "blocked_recv", recvBuf: 0 };
+    S.clients.push(c);
+    S.selectedClientId = newId;
+
+    flash(boxAccept, "ok");
+    flash(boxClients, "ok");
+
+    setEvent("accept", `accept() returns → Client #${newId}`, "ok");
+    setEvent("handler", `Handler #${newId}: recv() blocks`, "warn");
+    setEvent("kernel", "accept queue popped; handler waiting for bytes", "warn");
+
+    log(`AcceptThread: <span class="k">accept()</span> returns a NEW connected socket (Client #${newId}).`, "t");
+    log(`Server spawns ClientHandler #${newId}.`, "t");
+    log(`ClientHandler #${newId} calls <span class="k">recv()</span> → blocks until bytes arrive.`, "t");
+
+    refresh();
+    await sleep(700);
+
+    // Accept thread blocks again for next connection
+    flash(boxAccept, "warn");
+    setEvent("accept", "accept() called again → blocks", "warn");
+    log('AcceptThread loops and calls <span class="k">accept()</span> again → blocks.', "t");
+
+    await sleep(250);
+
+    S.busy = false;
+    refresh();
+  }
+
+  async function clientSendData(){
+    if(S.busy) return;
+    const c = selectedClient();
+    if(!c || c.status !== "alive" || c.handler !== "blocked_recv") return;
+
+    S.busy = true;
+    clearHL();
+
+    const bytes = 42;
+
+    // Bytes arrive into kernel buffer for that selected client (we mirror by setting its recvBuf)
+    c.recvBuf += bytes;
+    flash(boxRecvBuf, "ok");
+    flash(boxClients, "hl");
+
+    setEvent("kernel", `Bytes arrive → recv buffer +${bytes} (Client #${c.id})`, "ok");
+    log(`Network: ${bytes} bytes arrive for Client #${c.id}. Kernel queues them in recv buffer.`, "t");
+
+    animatePacket(boxClient, boxRecvBuf);
+    refresh();
+    await sleep(900);
+
+    // recv wakes and copies bytes
+    c.handler = "running";
+    flash(boxClients, "ok");
+    setEvent("handler", `Handler #${c.id}: recv() returns bytes`, "ok");
+    log(`ClientHandler #${c.id}: <span class="k">recv()</span> unblocks and copies bytes into app memory.`, "t");
+
+    refresh();
+    await sleep(750);
+
+    // After processing, handler blocks again, buffer emptied
+    c.recvBuf = 0;
+    c.handler = "blocked_recv";
+    flash(boxClients, "warn");
+
+    setEvent("handler", `Handler #${c.id}: recv() blocks again`, "warn");
+    setEvent("kernel", `Recv buffer empty (Client #${c.id})`, "warn");
+    log(`ClientHandler #${c.id} processes and calls <span class="k">recv()</span> again → blocks.`, "t");
+
+    await sleep(250);
+
+    S.busy = false;
+    refresh();
+  }
+
+  async function stopServer(){
+    if(S.busy) return;
+    if(S.server === "stopped") return;
+
+    S.busy = true;
+    clearHL();
+
+    S.server = "stopping";
+    S.stoppingFlag = true;
+    flash(boxListen, "warn");
+
+    setEvent("ui", "Stop: close(listen socket)", "warn");
+    setEvent("kernel", "Close triggers blocked accept() to wake", "warn");
+    log('<span class="warn">Stop</span>: UI thread closes the listening socket (the “door”).');
+
+    refresh();
+    await sleep(850);
+
+    // accept wakes with error/exception because listen socket closed
+    S.accept = "ended";
+    flash(boxAccept, "bad");
+
+    setEvent("accept", "accept() wakes → error/exception", "bad");
+    log('AcceptThread: blocked <span class="k">accept()</span> returns with an error/exception because the listening socket was closed.', "e");
+    log('Normal shutdown path: catch it, check stopping flag, exit loop.', "t");
+
+    refresh();
+    await sleep(850);
+
+    // server stopped (clients remain)
+    S.server = "stopped";
+    flash(boxListen, "bad");
+    setEvent("kernel", "Port no longer listening", "bad");
+    log('<span class="e">Stopped</span>: server is no longer listening on that port.');
+    log('Existing connected clients remain alive unless you also close their sockets.', "t");
+
+    await sleep(250);
+
+    S.busy = false;
+    refresh();
+  }
+
+  function resetAll(){
+    S.server="stopped";
+    S.accept="off";
+    S.queue=0;
+    S.tcp="CLOSED";
+    S.clients=[];
+    S.nextId=1;
+    S.selectedClientId=null;
+    S.busy=false;
+    S.stoppingFlag=false;
+
+    logEl.innerHTML="";
+    clearHL();
+    setEvent("ui","—");
+    setEvent("accept","—");
+    setEvent("kernel","—");
+    setEvent("handler","—");
+    log('<span class="k">RESET</span> back to initial state.');
+
+    refresh();
+  }
+
+  // ------------------ Wire events ------------------
+  btnStart.addEventListener("click", startServer);
+  btnConnect.addEventListener("click", clientConnect);
+  btnSend.addEventListener("click", clientSendData);
+  btnStop.addEventListener("click", stopServer);
+  btnReset.addEventListener("click", resetAll);
+
+  selClient.addEventListener("change", (e)=>{
+    const v = Number(e.target.value);
+    if(Number.isFinite(v)) setSelected(v);
+  });
+
+  paceSlider.addEventListener("input", ()=>{
+    S.pace = Number(paceSlider.value);
+    refresh();
+  });
+
+  // init
+  resetAll();
+</script>
+</body>
+</html>

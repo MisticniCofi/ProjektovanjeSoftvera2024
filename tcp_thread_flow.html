@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C# TCP Network Thread Flow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0f172a;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .canvas {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 2.2em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+        
+        svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Thread lanes */
+        .thread-lane {
+            fill: #f8fafc;
+            stroke: #cbd5e1;
+            stroke-width: 2;
+            stroke-dasharray: 8,4;
+        }
+        
+        .main-thread {
+            fill: #eff6ff;
+            stroke: #3b82f6;
+            stroke-width: 3;
+        }
+        
+        .worker-thread {
+            fill: #f0fdf4;
+            stroke: #22c55e;
+            stroke-width: 3;
+        }
+        
+        .client-thread {
+            fill: #fef2f2;
+            stroke: #ef4444;
+            stroke-width: 3;
+        }
+        
+        /* Process boxes */
+        .process {
+            fill: #3b82f6;
+            stroke: #1e40af;
+            stroke-width: 2;
+            rx: 6;
+        }
+        
+        .process-worker {
+            fill: #22c55e;
+            stroke: #15803d;
+            stroke-width: 2;
+            rx: 6;
+        }
+        
+        .process-client {
+            fill: #ef4444;
+            stroke: #b91c1c;
+            stroke-width: 2;
+            rx: 6;
+        }
+        
+        .blocking-process {
+            fill: #f59e0b;
+            stroke: #d97706;
+            stroke-width: 3;
+            stroke-dasharray: 5,3;
+            rx: 6;
+        }
+        
+        .thread-spawn {
+            fill: #8b5cf6;
+            stroke: #6d28d9;
+            stroke-width: 2;
+            rx: 6;
+        }
+        
+        /* Text */
+        .process-text {
+            fill: white;
+            font-size: 14px;
+            font-weight: 600;
+            text-anchor: middle;
+        }
+        
+        .detail-text {
+            fill: white;
+            font-size: 11px;
+            text-anchor: middle;
+        }
+        
+        .thread-label {
+            fill: #1e293b;
+            font-size: 16px;
+            font-weight: bold;
+            text-anchor: middle;
+        }
+        
+        .annotation {
+            fill: #475569;
+            font-size: 12px;
+            text-anchor: middle;
+            font-style: italic;
+        }
+        
+        /* Arrows */
+        .flow-arrow {
+            stroke: #1e293b;
+            stroke-width: 3;
+            fill: none;
+            marker-end: url(#arrowhead);
+        }
+        
+        .thread-spawn-arrow {
+            stroke: #8b5cf6;
+            stroke-width: 3;
+            fill: none;
+            marker-end: url(#arrowhead-spawn);
+            stroke-dasharray: 8,4;
+        }
+        
+        .data-flow-arrow {
+            stroke: #f59e0b;
+            stroke-width: 2.5;
+            fill: none;
+            marker-end: url(#arrowhead-data);
+        }
+        
+        .thread-exit {
+            stroke: #dc2626;
+            stroke-width: 3;
+            fill: none;
+            marker-end: url(#arrowhead-exit);
+            stroke-dasharray: 4,4;
+        }
+        
+        /* Lifecycle indicators */
+        .lifecycle-start {
+            fill: #22c55e;
+            stroke: #15803d;
+            stroke-width: 2;
+        }
+        
+        .lifecycle-end {
+            fill: #dc2626;
+            stroke: #991b1b;
+            stroke-width: 2;
+        }
+        
+        /* Legend items */
+        .legend-box {
+            fill: #f8fafc;
+            stroke: #cbd5e1;
+            stroke-width: 2;
+            rx: 8;
+        }
+        
+        .legend-text {
+            fill: #1e293b;
+            font-size: 13px;
+            text-anchor: start;
+        }
+    </style>
+</head>
+<body>
+    <div class="canvas">
+        <h1>C# TCP Socket Network Flow - Thread Visualization</h1>
+        <p class="subtitle">Complete execution flow showing thread spawning, blocking, and lifecycle</p>
+        
+        <svg viewBox="0 0 1700 1400" xmlns="http://www.w3.org/2000/svg">
+            <!-- Arrow definitions -->
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#1e293b" />
+                </marker>
+                <marker id="arrowhead-spawn" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#8b5cf6" />
+                </marker>
+                <marker id="arrowhead-data" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#f59e0b" />
+                </marker>
+                <marker id="arrowhead-exit" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#dc2626" />
+                </marker>
+            </defs>
+            
+            <!-- THREAD LANES -->
+            <!-- Main Server Thread Lane -->
+            <rect class="main-thread" x="50" y="80" width="350" height="950" rx="8" />
+            <text class="thread-label" x="225" y="110">MAIN SERVER THREAD</text>
+            
+            <!-- Worker Thread 1 Lane -->
+            <rect class="worker-thread" x="450" y="400" width="300" height="530" rx="8" />
+            <text class="thread-label" x="600" y="430">WORKER THREAD 1</text>
+            <text class="annotation" x="600" y="450">(Handles Client 1)</text>
+            
+            <!-- Worker Thread 2 Lane -->
+            <rect class="worker-thread" x="800" y="550" width="300" height="380" rx="8" />
+            <text class="thread-label" x="950" y="580">WORKER THREAD 2</text>
+            <text class="annotation" x="950" y="600">(Handles Client 2)</text>
+            
+            <!-- Client Thread Lane -->
+            <rect class="client-thread" x="1350" y="80" width="300" height="750" rx="8" />
+            <text class="thread-label" x="1500" y="110">CLIENT THREAD</text>
+            
+            <!-- MAIN SERVER THREAD FLOW -->
+            <!-- Thread Start -->
+            <circle class="lifecycle-start" cx="225" cy="150" r="15" />
+            <text class="process-text" x="225" y="155" style="font-size: 20px;">▶</text>
+            <text class="annotation" x="225" y="185">Thread starts</text>
+            
+            <line class="flow-arrow" x1="225" y1="165" x2="225" y2="200" />
+            
+            <!-- new Socket() -->
+            <rect class="process" x="100" y="200" width="250" height="50" />
+            <text class="process-text" x="225" y="222">new Socket()</text>
+            <text class="detail-text" x="225" y="238">Create server socket</text>
+            
+            <line class="flow-arrow" x1="225" y1="250" x2="225" y2="280" />
+            
+            <!-- Bind() -->
+            <rect class="process" x="100" y="280" width="250" height="50" />
+            <text class="process-text" x="225" y="302">Bind(IPEndPoint)</text>
+            <text class="detail-text" x="225" y="318">0.0.0.0:8080</text>
+            
+            <line class="flow-arrow" x1="225" y1="330" x2="225" y2="360" />
+            
+            <!-- Listen() -->
+            <rect class="process" x="100" y="360" width="250" height="50" />
+            <text class="process-text" x="225" y="382">Listen(10)</text>
+            <text class="detail-text" x="225" y="398">Queue created, passive mode</text>
+            
+            <line class="flow-arrow" x1="225" y1="410" x2="225" y2="450" />
+            
+            <!-- Accept() #1 - BLOCKING -->
+            <rect class="blocking-process" x="100" y="450" width="250" height="60" />
+            <text class="process-text" x="225" y="472">Accept()</text>
+            <text class="detail-text" x="225" y="490">⏸ THREAD BLOCKED</text>
+            <text class="detail-text" x="225" y="503">Waiting for client...</text>
+            
+            <!-- Client 1 connects -->
+            <line class="data-flow-arrow" x1="1350" y1="300" x2="350" y2="480" />
+            <text class="annotation" x="850" y="380" style="fill: #f59e0b; font-weight: bold;">Client 1 connects →</text>
+            
+            <line class="flow-arrow" x1="225" y1="510" x2="225" y2="545" />
+            <text class="annotation" x="225" y="535" style="fill: #22c55e; font-weight: bold;">✓ Returns client socket</text>
+            
+            <!-- Spawn Worker Thread 1 -->
+            <rect class="thread-spawn" x="100" y="545" width="250" height="55" />
+            <text class="process-text" x="225" y="567">Task.Run(() => HandleClient)</text>
+            <text class="detail-text" x="225" y="583">Spawn new thread for client 1</text>
+            
+            <line class="thread-spawn-arrow" x1="350" y1="575" x2="450" y2="475" />
+            <text class="annotation" x="400" y="520" style="fill: #8b5cf6; font-weight: bold;">New thread spawned ⚡</text>
+            
+            <line class="flow-arrow" x1="225" y1="600" x2="225" y2="640" />
+            
+            <!-- Accept() #2 - BLOCKING AGAIN -->
+            <rect class="blocking-process" x="100" y="640" width="250" height="60" />
+            <text class="process-text" x="225" y="662">Accept()</text>
+            <text class="detail-text" x="225" y="680">⏸ THREAD BLOCKED</text>
+            <text class="detail-text" x="225" y="693">Waiting for next client...</text>
+            
+            <!-- Client 2 connects -->
+            <line class="data-flow-arrow" x1="1350" y1="450" x2="350" y2="670" />
+            <text class="annotation" x="850" y="550" style="fill: #f59e0b; font-weight: bold;">Client 2 connects →</text>
+            
+            <line class="flow-arrow" x1="225" y1="700" x2="225" y2="735" />
+            <text class="annotation" x="225" y="725" style="fill: #22c55e; font-weight: bold;">✓ Returns client socket</text>
+            
+            <!-- Spawn Worker Thread 2 -->
+            <rect class="thread-spawn" x="100" y="735" width="250" height="55" />
+            <text class="process-text" x="225" y="757">Task.Run(() => HandleClient)</text>
+            <text class="detail-text" x="225" y="773">Spawn new thread for client 2</text>
+            
+            <line class="thread-spawn-arrow" x1="350" y1="765" x2="800" y2="625" />
+            <text class="annotation" x="575" y="690" style="fill: #8b5cf6; font-weight: bold;">New thread spawned ⚡</text>
+            
+            <line class="flow-arrow" x1="225" y1="790" x2="225" y2="830" />
+            
+            <!-- Accept() #3 - Continues -->
+            <rect class="blocking-process" x="100" y="830" width="250" height="60" />
+            <text class="process-text" x="225" y="852">Accept()</text>
+            <text class="detail-text" x="225" y="870">⏸ Waiting...</text>
+            <text class="detail-text" x="225" y="883">Loop continues...</text>
+            
+            <line class="flow-arrow" x1="225" y1="890" x2="225" y2="920" />
+            
+            <!-- Main thread continues -->
+            <text class="annotation" x="225" y="950" style="font-weight: bold;">↻ Main thread keeps accepting</text>
+            <text class="annotation" x="225" y="970">Can handle multiple clients</text>
+            
+            <!-- Eventually shutdown -->
+            <text class="annotation" x="225" y="1000" style="fill: #dc2626;">When server shuts down:</text>
+            <circle class="lifecycle-end" cx="225" cy="1015" r="15" />
+            <text class="process-text" x="225" y="1020" style="font-size: 20px;">■</text>
+            
+            
+            <!-- WORKER THREAD 1 FLOW -->
+            <!-- Thread start -->
+            <circle class="lifecycle-start" cx="600" cy="480" r="12" />
+            <text class="process-text" x="600" y="485" style="font-size: 16px;">▶</text>
+            
+            <line class="flow-arrow" x1="600" y1="492" x2="600" y2="520" />
+            
+            <!-- Receive() - BLOCKING -->
+            <rect class="blocking-process" x="475" y="520" width="250" height="55" />
+            <text class="process-text" x="600" y="542">Receive(buffer)</text>
+            <text class="detail-text" x="600" y="560">⏸ THREAD BLOCKED</text>
+            <text class="detail-text" x="600" y="570">Waiting for data from client 1...</text>
+            
+            <!-- Data arrives -->
+            <line class="data-flow-arrow" x1="1350" y1="350" x2="725" y2="550" />
+            <text class="annotation" x="1040" y="450" style="fill: #f59e0b; font-weight: bold;">Data arrives ←</text>
+            
+            <line class="flow-arrow" x1="600" y1="575" x2="600" y2="605" />
+            
+            <!-- Process data -->
+            <rect class="process-worker" x="475" y="605" width="250" height="45" />
+            <text class="process-text" x="600" y="625">Process received data</text>
+            <text class="detail-text" x="600" y="640">Business logic here</text>
+            
+            <line class="flow-arrow" x1="600" y1="650" x2="600" y2="680" />
+            
+            <!-- Send() -->
+            <rect class="process-worker" x="475" y="680" width="250" height="45" />
+            <text class="process-text" x="600" y="700">Send(response)</text>
+            <text class="detail-text" x="600" y="715">Send data back to client 1</text>
+            
+            <line class="data-flow-arrow" x1="725" y1="705" x2="1350" y2="400" />
+            <text class="annotation" x="1040" y="550" style="fill: #f59e0b; font-weight: bold;">Response sent →</text>
+            
+            <line class="flow-arrow" x1="600" y1="725" x2="600" y2="760" />
+            
+            <!-- Loop or continue receiving -->
+            <text class="annotation" x="600" y="780" style="font-weight: bold;">↻ Can loop back to Receive()</text>
+            <text class="annotation" x="600" y="800">Or continue processing...</text>
+            
+            <line class="flow-arrow" x1="600" y1="810" x2="600" y2="840" />
+            
+            <!-- Shutdown -->
+            <rect class="process-worker" x="475" y="840" width="250" height="45" />
+            <text class="process-text" x="600" y="860">Shutdown(Both)</text>
+            <text class="detail-text" x="600" y="875">Close()</text>
+            
+            <line class="flow-arrow" x1="600" y1="885" x2="600" y2="910" />
+            
+            <!-- Thread exit -->
+            <circle class="lifecycle-end" cx="600" cy="915" r="12" />
+            <text class="process-text" x="600" y="920" style="font-size: 16px;">■</text>
+            <text class="annotation" x="600" y="940">Thread exits</text>
+            
+            
+            <!-- WORKER THREAD 2 FLOW -->
+            <circle class="lifecycle-start" cx="950" cy="630" r="12" />
+            <text class="process-text" x="950" y="635" style="font-size: 16px;">▶</text>
+            
+            <line class="flow-arrow" x1="950" y1="642" x2="950" y2="670" />
+            
+            <!-- Receive() -->
+            <rect class="blocking-process" x="825" y="670" width="250" height="55" />
+            <text class="process-text" x="950" y="692">Receive(buffer)</text>
+            <text class="detail-text" x="950" y="710">⏸ Waiting for client 2 data...</text>
+            
+            <line class="flow-arrow" x1="950" y1="725" x2="950" y2="755" />
+            
+            <!-- Process -->
+            <rect class="process-worker" x="825" y="755" width="250" height="45" />
+            <text class="process-text" x="950" y="775">Process + Send()</text>
+            <text class="detail-text" x="950" y="790">Handle client 2</text>
+            
+            <line class="flow-arrow" x1="950" y1="800" x2="950" y2="830" />
+            
+            <!-- Close -->
+            <rect class="process-worker" x="825" y="830" width="250" height="45" />
+            <text class="process-text" x="950" y="850">Shutdown() + Close()</text>
+            <text class="detail-text" x="950" y="865">Cleanup</text>
+            
+            <line class="flow-arrow" x1="950" y1="875" x2="950" y2="900" />
+            
+            <circle class="lifecycle-end" cx="950" cy="905" r="12" />
+            <text class="process-text" x="950" y="910" style="font-size: 16px;">■</text>
+            <text class="annotation" x="950" y="930">Thread exits</text>
+            
+            
+            <!-- CLIENT THREAD FLOW -->
+            <!-- Thread start -->
+            <circle class="lifecycle-start" cx="1500" cy="150" r="15" />
+            <text class="process-text" x="1500" y="155" style="font-size: 20px;">▶</text>
+            
+            <line class="flow-arrow" x1="1500" y1="165" x2="1500" y2="200" />
+            
+            <!-- new Socket() -->
+            <rect class="process-client" x="1375" y="200" width="250" height="50" />
+            <text class="process-text" x="1500" y="222">new Socket()</text>
+            <text class="detail-text" x="1500" y="238">Create client socket</text>
+            
+            <line class="flow-arrow" x1="1500" y1="250" x2="1500" y2="280" />
+            
+            <!-- Connect() - BLOCKING -->
+            <rect class="blocking-process" x="1375" y="280" width="250" height="60" />
+            <text class="process-text" x="1500" y="302">Connect(server:8080)</text>
+            <text class="detail-text" x="1500" y="320">⏸ THREAD BLOCKED</text>
+            <text class="detail-text" x="1500" y="333">TCP handshake...</text>
+            
+            <line class="flow-arrow" x1="1500" y1="340" x2="1500" y2="365" />
+            <text class="annotation" x="1500" y="360" style="fill: #22c55e; font-weight: bold;">✓ Connected</text>
+            
+            <!-- Send() -->
+            <rect class="process-client" x="1375" y="365" width="250" height="45" />
+            <text class="process-text" x="1500" y="385">Send(data)</text>
+            <text class="detail-text" x="1500" y="400">Send request to server</text>
+            
+            <line class="flow-arrow" x1="1500" y1="410" x2="1500" y2="440" />
+            
+            <!-- Receive() - BLOCKING -->
+            <rect class="blocking-process" x="1375" y="440" width="250" height="55" />
+            <text class="process-text" x="1500" y="462">Receive(buffer)</text>
+            <text class="detail-text" x="1500" y="480">⏸ Waiting for response...</text>
+            
+            <line class="flow-arrow" x1="1500" y1="495" x2="1500" y2="525" />
+            
+            <!-- Process response -->
+            <rect class="process-client" x="1375" y="525" width="250" height="45" />
+            <text class="process-text" x="1500" y="545">Process response</text>
+            <text class="detail-text" x="1500" y="560">Handle server data</text>
+            
+            <line class="flow-arrow" x1="1500" y1="570" x2="1500" y2="600" />
+            
+            <!-- More communication possible -->
+            <text class="annotation" x="1500" y="620" style="font-weight: bold;">↻ Can continue Send/Receive</text>
+            
+            <line class="flow-arrow" x1="1500" y1="630" x2="1500" y2="670" />
+            
+            <!-- Close -->
+            <rect class="process-client" x="1375" y="670" width="250" height="45" />
+            <text class="process-text" x="1500" y="690">Shutdown() + Close()</text>
+            <text class="detail-text" x="1500" y="705">Disconnect</text>
+            
+            <line class="flow-arrow" x1="1500" y1="715" x2="1500" y2="750" />
+            
+            <!-- Thread exit -->
+            <circle class="lifecycle-end" cx="1500" cy="755" r="15" />
+            <text class="process-text" x="1500" y="760" style="font-size: 20px;">■</text>
+            <text class="annotation" x="1500" y="790">Thread exits</text>
+            <text class="annotation" x="1500" y="810" style="fill: #dc2626; font-weight: bold;">Either side can initiate close</text>
+            
+            
+            <!-- LEGEND -->
+            <rect class="legend-box" x="50" y="1070" width="1600" height="290" />
+            <text class="thread-label" x="850" y="1100">LEGEND</text>
+            
+            <!-- Row 1 -->
+            <circle class="lifecycle-start" cx="80" cy="1130" r="12" />
+            <text class="legend-text" x="110" y="1135">Thread Start</text>
+            
+            <circle class="lifecycle-end" cx="280" cy="1130" r="12" />
+            <text class="legend-text" x="310" y="1135">Thread Exit/End</text>
+            
+            <rect class="blocking-process" x="480" y="1115" width="120" height="30" />
+            <text class="legend-text" x="620" y="1135">Blocking Operation (thread frozen)</text>
+            
+            <line class="thread-spawn-arrow" x1="900" y1="1130" x2="970" y2="1130" />
+            <text class="legend-text" x="990" y="1135">New Thread Spawned</text>
+            
+            <!-- Row 2 -->
+            <rect class="process" x="80" y="1165" width="100" height="30" />
+            <text class="legend-text" x="200" y="1185">Main Thread Operation</text>
+            
+            <rect class="process-worker" x="420" y="1165" width="100" height="30" />
+            <text class="legend-text" x="540" y="1185">Worker Thread Operation</text>
+            
+            <rect class="process-client" x="760" y="1165" width="100" height="30" />
+            <text class="legend-text" x="880" y="1185">Client Thread Operation</text>
+            
+            <line class="data-flow-arrow" x1="1100" y1="1180" x2="1170" y2="1180" />
+            <text class="legend-text" x="1190" y="1185">Data Transfer</text>
+            
+            <!-- Key Points -->
+            <text class="thread-label" x="850" y="1235" style="font-size: 14px;">KEY THREADING CONCEPTS</text>
+            
+            <text class="legend-text" x="80" y="1265">• <tspan style="font-weight: bold;">Main Server Thread:</tspan> Loops on Accept() - spawns worker threads for each client</text>
+            <text class="legend-text" x="80" y="1290">• <tspan style="font-weight: bold;">Worker Threads:</tspan> Independent threads handling individual client connections (Send/Receive)</text>
+            <text class="legend-text" x="80" y="1315">• <tspan style="font-weight: bold;">Blocking Operations:</tspan> Accept(), Connect(), Receive() - freeze the calling thread until complete</text>
+            <text class="legend-text" x="80" y="1340">• <tspan style="font-weight: bold;">Thread Lifecycle:</tspan> Worker threads exit when client disconnects or Shutdown() is called</text>
+        </svg>
+    </div>
+</body>
+</html>

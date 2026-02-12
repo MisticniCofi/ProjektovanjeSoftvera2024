@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C# TCP Network Process</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .diagram-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .column {
+            flex: 1;
+        }
+        
+        .column-title {
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            color: white;
+        }
+        
+        .server-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .client-title {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .step {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -12px;
+            left: 15px;
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .client-step .step-number {
+            background: #f5576c;
+        }
+        
+        .step-title {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+            margin-top: 5px;
+        }
+        
+        .step-description {
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .code-block {
+    background: #2d3748;
+    color: #68d391;
+    padding: 12px;
+    border-radius: 6px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.85em;
+    overflow-x: auto;
+    margin-top: 10px;
+    white-space: pre;   /* <-- THIS fixes line breaks */
+}
+
+        
+        .keyword {
+            color: #9f7aea;
+        }
+        
+        .type {
+            color: #4299e1;
+        }
+        
+        .string {
+            color: #f6ad55;
+        }
+        
+        .comment {
+            color: #a0aec0;
+        }
+        
+        .connection-arrow {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .arrow-line {
+            border-top: 3px dashed #667eea;
+            position: relative;
+            margin: 10px 0;
+        }
+        
+        .arrow-label {
+            background: white;
+            padding: 5px 15px;
+            display: inline-block;
+            color: #667eea;
+            font-weight: bold;
+            border: 2px solid #667eea;
+            border-radius: 20px;
+            margin: 10px 0;
+        }
+        
+        .data-flow {
+            background: #edf2f7;
+            border-left: 4px solid #4299e1;
+            padding: 15px;
+            margin-top: 30px;
+            border-radius: 4px;
+        }
+        
+        .data-flow-title {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .flow-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            gap: 10px;
+        }
+        
+        .flow-arrow {
+            color: #4299e1;
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+        
+        .legend {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .legend-title {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: flex-start;
+            margin: 10px 0;
+            gap: 10px;
+        }
+        
+        .legend-icon {
+            font-weight: bold;
+            min-width: 120px;
+            color: #667eea;
+        }
+        
+        .state-indicator {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        
+        .state-blocking {
+            background: #fed7d7;
+            color: #c53030;
+        }
+        
+        .state-async {
+            background: #c6f6d5;
+            color: #2f855a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>C# TCP Network Process</h1>
+        <p class="subtitle">Visual Guide to Server Socket Creation, Binding, Listening, and Client Connections</p>
+        
+        <div class="diagram-container">
+            <!-- Server Column -->
+            <div class="column">
+                <div class="column-title server-title">SERVER SIDE</div>
+                
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Create Socket</div>
+                    <div class="step-description">
+                        Initialize a new TCP socket using the Socket class. Specify address family (IPv4), socket type (Stream for TCP), and protocol type.
+                    </div>
+                    <div class="code-block">
+<span class="type">Socket</span> serverSocket = <span class="keyword">new</span> <span class="type">Socket</span>(
+    <span class="type">AddressFamily</span>.InterNetwork,
+    <span class="type">SocketType</span>.Stream,
+    <span class="type">ProtocolType</span>.Tcp
+);</div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Bind to Endpoint</div>
+                    <div class="step-description">
+                        Bind the socket to a local IP address and port number. This associates the socket with a specific network interface and port.
+                    </div>
+                    <div class="code-block">
+<span class="type">IPEndPoint</span> endPoint = <span class="keyword">new</span> <span class="type">IPEndPoint</span>(
+    <span class="type">IPAddress</span>.Parse("127.0.0.1"), <span </span>
+    8080 <span class="comment">// Port number</span>
+);
+serverSocket.Bind(endPoint);</div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Listen for Connections</div>
+                    <div class="step-description">
+                        Put the socket in listening mode. The backlog parameter specifies the maximum queue length for pending connections.
+                    </div>
+                    <div class="code-block">
+serverSocket.Listen(<span class="string">10</span>); <span class="comment">// Backlog of 10</span>
+Console.WriteLine(<span class="string">"Server listening..."</span>);</div>
+                    <span class="state-indicator state-blocking">WAITING FOR CONNECTIONS</span>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Accept Client Connection</div>
+                    <div class="step-description">
+                        Block and wait for an incoming client connection. Returns a new Socket object representing the client connection.
+                    </div>
+                    <div class="code-block">
+<span class="type">Socket</span> clientSocket = serverSocket.Accept();
+Console.WriteLine(<span class="string">"Client connected!"</span>);</div>
+                    <span class="state-indicator state-blocking">BLOCKING CALL</span>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-title">Send/Receive Data</div>
+                    <div class="step-description">
+                        Exchange data with the connected client using Send() and Receive() methods on the client socket.
+                    </div>
+                    <div class="code-block">
+<span class="comment">// Receive data</span>
+<span class="keyword">byte</span>[] buffer = <span class="keyword">new byte</span>[1024];
+<span class="keyword">int</span> bytesRead = clientSocket.Receive(buffer);
+
+<span class="comment">// Send response</span>
+<span class="keyword">byte</span>[] response = <span class="type">Encoding</span>.UTF8.GetBytes(<span class="string">"Hello!"</span>);
+clientSocket.Send(response);</div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <div class="step-title">Close Connection</div>
+                    <div class="step-description">
+                        Gracefully close the client socket connection and optionally the server socket.
+                    </div>
+                    <div class="code-block">
+clientSocket.Shutdown(<span class="type">SocketShutdown</span>.Both);
+clientSocket.Close();
+<span class="comment">// serverSocket.Close(); // When done</span></div>
+                </div>
+            </div>
+            
+            <!-- Client Column -->
+            <div class="column">
+                <div class="column-title client-title">CLIENT SIDE</div>
+                
+                <div class="step client-step">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Create Socket</div>
+                    <div class="step-description">
+                        Initialize a client socket with the same parameters as the server socket.
+                    </div>
+                    <div class="code-block">
+<span class="type">Socket</span> clientSocket = <span class="keyword">new</span> <span class="type">Socket</span>(
+    <span class="type">AddressFamily</span>.InterNetwork,
+    <span class="type">SocketType</span>.Stream,
+    <span class="type">ProtocolType</span>.Tcp
+);</div>
+                </div>
+                
+                <div class="step client-step">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Connect to Server</div>
+                    <div class="step-description">
+                        Establish a connection to the server by specifying the server's IP address and port number.
+                    </div>
+                    <div class="code-block">
+<span class="type">IPEndPoint</span> serverEndPoint = <span class="keyword">new</span> <span class="type">IPEndPoint</span>(
+    <span class="type">IPAddress</span>.Parse(<span class="string">"127.0.0.1"</span>),
+    8080
+);
+clientSocket.Connect(serverEndPoint);
+Console.WriteLine(<span class="string">"Connected to server!"</span>);</div>
+                    <span class="state-indicator state-blocking">BLOCKING CALL</span>
+                </div>
+                
+                <div class="connection-arrow">
+                    <div class="arrow-label">🔌 TCP HANDSHAKE (SYN, SYN-ACK, ACK)</div>
+                    <div class="arrow-line"></div>
+                </div>
+                
+                <div class="step client-step">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Send/Receive Data</div>
+                    <div class="step-description">
+                        Send data to the server and receive responses using Send() and Receive() methods.
+                    </div>
+                    <div class="code-block">
+<span class="comment">// Send data to server</span>
+<span class="keyword">byte</span>[] data = <span class="type">Encoding</span>.UTF8.GetBytes(<span class="string">"Hello Server!"</span>);
+clientSocket.Send(data);
+
+<span class="comment">// Receive response</span>
+<span class="keyword">byte</span>[] buffer = <span class="keyword">new byte</span>[1024];
+<span class="keyword">int</span> bytesRead = clientSocket.Receive(buffer);</div>
+                </div>
+                
+                <div class="step client-step">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Close Connection</div>
+                    <div class="step-description">
+                        Gracefully shutdown and close the socket when communication is complete.
+                    </div>
+                    <div class="code-block">
+clientSocket.Shutdown(<span class="type">SocketShutdown</span>.Both);
+clientSocket.Close();</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="data-flow">
+            <div class="data-flow-title">📡 Data Flow Sequence</div>
+            <div class="flow-item">
+                <strong>1.</strong> Server creates socket → Binds to address → Listens
+            </div>
+            <div class="flow-item">
+                <strong>2.</strong> Client creates socket → Connects to server
+            </div>
+            <div class="flow-item">
+                <strong>3.</strong> Server accepts connection → New client socket created
+            </div>
+            <div class="flow-item">
+                <strong>4.</strong> Bidirectional data exchange <span class="flow-arrow">⇄</span> Send/Receive
+            </div>
+            <div class="flow-item">
+                <strong>5.</strong> Either side initiates shutdown → Close sockets
+            </div>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-title">📚 Key Concepts</div>
+            <div class="legend-item">
+                <div class="legend-icon">Socket:</div>
+                <div>Endpoint for network communication, represents a connection</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon">Bind():</div>
+                <div>Associates socket with local IP address and port</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon">Listen():</div>
+                <div>Marks socket as passive, ready to accept incoming connections</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon">Accept():</div>
+                <div>Blocks until client connects, returns new socket for that client</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon">Connect():</div>
+                <div>Client initiates connection to server's endpoint</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon">Send/Receive():</div>
+                <div>Transfer data as byte arrays over the connection</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon">Async Methods:</div>
+                <div>BeginAccept/AcceptAsync, BeginConnect/ConnectAsync for non-blocking operations</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
