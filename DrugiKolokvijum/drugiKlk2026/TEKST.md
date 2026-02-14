@@ -2,7 +2,7 @@
 
 Klijent server aplikacija
 
-Server - konzola
+# Server - konzola
 Klijent - forma
 3 registrovana korisnika u operativnoj memoriji
 Server na pocetku rada unosi maksimalan broj istovremeno povezanih klijenata

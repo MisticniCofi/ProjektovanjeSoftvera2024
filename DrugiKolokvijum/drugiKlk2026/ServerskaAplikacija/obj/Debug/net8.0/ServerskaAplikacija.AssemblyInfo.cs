@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ServerskaAplikacija")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3b0df68858bf56ba5a5983eabe71c1feaf781e29")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5073999bdfec11379c26b7b656df8a5d6224c888")]
 [assembly: System.Reflection.AssemblyProductAttribute("ServerskaAplikacija")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ServerskaAplikacija")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

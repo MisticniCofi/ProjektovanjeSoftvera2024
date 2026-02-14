@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\git\\ProjektovanjeSoftvera2024\\drugiKlk2026\\KlijentskaAp\\KlijentskaAp.csproj",
+      "projectUniqueName": "D:\\git\\ProjektovanjeSoftvera2024\\DrugiKolokvijum\\drugiKlk2026\\KlijentskaAp\\KlijentskaAp.csproj",
       "projectName": "KlijentskaAp",
-      "projectPath": "D:\\git\\ProjektovanjeSoftvera2024\\drugiKlk2026\\KlijentskaAp\\KlijentskaAp.csproj",
+      "projectPath": "D:\\git\\ProjektovanjeSoftvera2024\\DrugiKolokvijum\\drugiKlk2026\\KlijentskaAp\\KlijentskaAp.csproj",
       "packagesPath": "C:\\Users\\SIMON\\.nuget\\packages\\",
-      "outputPath": "D:\\git\\ProjektovanjeSoftvera2024\\drugiKlk2026\\KlijentskaAp\\obj\\",
+      "outputPath": "D:\\git\\ProjektovanjeSoftvera2024\\DrugiKolokvijum\\drugiKlk2026\\KlijentskaAp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\SIMON\\AppData\\Roaming\\NuGet\\NuGet.Config",

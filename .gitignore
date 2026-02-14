@@ -1,0 +1,9 @@
+*/.vs/
+.vs/
+**/bin/
+**/obj/
+*.user
+*.suo
+*.pdb
+*.exe
+.DS_Store
