@@ -12,6 +12,7 @@ namespace ServerskaAp
 {
     internal class Server
     {
+        public Form1 forma;
         public Socket serverskiSoket;
         public List<ClientHandler> klijenti = new List<ClientHandler>();
 
@@ -50,6 +51,7 @@ namespace ServerskaAp
                 trenutnoUlogovanih++;
 
                 Thread usluziKlijenta = new Thread(ch.Handle);
+                usluziKlijenta.IsBackground = true;
                 usluziKlijenta.Start();
             }
         }

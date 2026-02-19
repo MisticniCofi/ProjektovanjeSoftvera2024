@@ -13,5 +13,8 @@ namespace Pomocne
         MINMAX,
         DATE,
         LOGOUT,
+        ERROR,
+        ODGOVOR,
+        RESULT
     }
 }

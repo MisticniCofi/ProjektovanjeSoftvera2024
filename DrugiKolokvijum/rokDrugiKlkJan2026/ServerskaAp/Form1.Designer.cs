@@ -28,45 +28,43 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnStart = new Button();
-            dgvKorisnici = new DataGridView();
-            ((System.ComponentModel.ISupportInitialize)dgvKorisnici).BeginInit();
+            txtMaks = new TextBox();
+            btnPokreni = new Button();
             SuspendLayout();
             // 
-            // btnStart
+            // txtMaks
             // 
-            btnStart.Location = new Point(276, 112);
-            btnStart.Name = "btnStart";
-            btnStart.Size = new Size(75, 23);
-            btnStart.TabIndex = 1;
-            btnStart.Text = "START";
-            btnStart.UseVisualStyleBackColor = true;
-            btnStart.Click += btnStart_Click;
+            txtMaks.Location = new Point(275, 91);
+            txtMaks.Name = "txtMaks";
+            txtMaks.Size = new Size(198, 23);
+            txtMaks.TabIndex = 0;
             // 
-            // dgvKorisnici
+            // btnPokreni
             // 
-            dgvKorisnici.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvKorisnici.Location = new Point(440, 112);
-            dgvKorisnici.Name = "dgvKorisnici";
-            dgvKorisnici.Size = new Size(329, 233);
-            dgvKorisnici.TabIndex = 2;
+            btnPokreni.Location = new Point(544, 91);
+            btnPokreni.Name = "btnPokreni";
+            btnPokreni.Size = new Size(100, 23);
+            btnPokreni.TabIndex = 1;
+            btnPokreni.Text = "Pokreni";
+            btnPokreni.UseVisualStyleBackColor = true;
+            btnPokreni.Click += btnPokreni_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(dgvKorisnici);
-            Controls.Add(btnStart);
+            Controls.Add(btnPokreni);
+            Controls.Add(txtMaks);
             Name = "Form1";
             Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)dgvKorisnici).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
-        private Button btnStart;
-        public DataGridView dgvKorisnici;
+        private TextBox txtMaks;
+        private Button btnPokreni;
     }
 }

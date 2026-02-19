@@ -1,4 +1,4 @@
-﻿namespace ServerskaAp
+﻿namespace KlijentskaAplikacija
 {
     partial class Form1
     {
@@ -28,45 +28,53 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnStart = new Button();
-            dgvKorisnici = new DataGridView();
-            ((System.ComponentModel.ISupportInitialize)dgvKorisnici).BeginInit();
+            txtUser = new TextBox();
+            txtPass = new TextBox();
+            btnLogin = new Button();
             SuspendLayout();
             // 
-            // btnStart
+            // txtUser
             // 
-            btnStart.Location = new Point(276, 112);
-            btnStart.Name = "btnStart";
-            btnStart.Size = new Size(75, 23);
-            btnStart.TabIndex = 1;
-            btnStart.Text = "START";
-            btnStart.UseVisualStyleBackColor = true;
-            btnStart.Click += btnStart_Click;
+            txtUser.Location = new Point(247, 59);
+            txtUser.Name = "txtUser";
+            txtUser.Size = new Size(218, 23);
+            txtUser.TabIndex = 0;
             // 
-            // dgvKorisnici
+            // txtPass
             // 
-            dgvKorisnici.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvKorisnici.Location = new Point(440, 112);
-            dgvKorisnici.Name = "dgvKorisnici";
-            dgvKorisnici.Size = new Size(329, 233);
-            dgvKorisnici.TabIndex = 2;
+            txtPass.Location = new Point(247, 112);
+            txtPass.Name = "txtPass";
+            txtPass.Size = new Size(218, 23);
+            txtPass.TabIndex = 1;
+            // 
+            // btnLogin
+            // 
+            btnLogin.Location = new Point(247, 159);
+            btnLogin.Name = "btnLogin";
+            btnLogin.Size = new Size(218, 23);
+            btnLogin.TabIndex = 2;
+            btnLogin.Text = "Loign";
+            btnLogin.UseVisualStyleBackColor = true;
+            btnLogin.Click += btnLogin_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(dgvKorisnici);
-            Controls.Add(btnStart);
+            Controls.Add(btnLogin);
+            Controls.Add(txtPass);
+            Controls.Add(txtUser);
             Name = "Form1";
             Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)dgvKorisnici).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
-        private Button btnStart;
-        public DataGridView dgvKorisnici;
+        private TextBox txtUser;
+        private TextBox txtPass;
+        private Button btnLogin;
     }
 }

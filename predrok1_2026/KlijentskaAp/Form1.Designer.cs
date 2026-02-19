@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             txtPoruka = new TextBox();
             txtOdgovor = new TextBox();
             btnLogin = new Button();
@@ -36,6 +37,8 @@
             btnMinmax = new Button();
             btnDate = new Button();
             btnLogout = new Button();
+            timer1 = new System.Windows.Forms.Timer(components);
+            txtTimer = new TextBox();
             SuspendLayout();
             // 
             // txtPoruka
@@ -110,11 +113,23 @@
             btnLogout.UseVisualStyleBackColor = true;
             btnLogout.Click += btnLogout_Click;
             // 
+            // timer1
+            // 
+            timer1.Tick += timer1_Tick;
+            // 
+            // txtTimer
+            // 
+            txtTimer.Location = new Point(624, 279);
+            txtTimer.Name = "txtTimer";
+            txtTimer.Size = new Size(100, 23);
+            txtTimer.TabIndex = 8;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(txtTimer);
             Controls.Add(btnLogout);
             Controls.Add(btnDate);
             Controls.Add(btnMinmax);
@@ -139,5 +154,7 @@
         private Button btnMinmax;
         private Button btnDate;
         private Button btnLogout;
+        private System.Windows.Forms.Timer timer1;
+        private TextBox txtTimer;
     }
 }

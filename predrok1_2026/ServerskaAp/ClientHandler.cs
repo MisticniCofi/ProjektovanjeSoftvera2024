@@ -66,6 +66,9 @@ namespace ServerskaAp
                                         ser.Posalji("Uspesno ulogovan", Operacija.ODGOVOR);
                                         s.trenutnoUlogovanih++;
                                         u.Ulogovan = true;
+                                       
+                                       
+
                                         break;
                                     }
                                 }
