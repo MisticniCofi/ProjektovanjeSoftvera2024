@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -18,7 +19,7 @@ namespace ServerskaAp
 
         public List<ClientHandler> klijenti = new List<ClientHandler>();
 
-        public List<User> registrovani = new List<User>
+        public BindingList<User> registrovani = new BindingList<User>
         {
             new User("pera", "pera"),
             new User("jana", "jana"),
@@ -27,14 +28,29 @@ namespace ServerskaAp
             new User("ana", "ana"),
         };
 
+        public List<Pitanje> pitanja = new List<Pitanje>
+        {
+            new Pitanje("Koji je najbolji faks?", new List<String> {"fon","etf","fpn"}, 0, 5),
+            new Pitanje("Kad ne znas tacan odgovor pritisni?", new List<String> {"a","b","c"}, 1, 5),
+            new Pitanje("Dana u godini?", new List<String> {"19","365","2"}, 1, 10),
+            new Pitanje("Sadasnja godina?", new List<String> {"2001","2089","2026"}, 2, 5),
+            new Pitanje("Najbolji slatkis?", new List<String> {"medeno srce","jafa","muchmellow"}, 0, 5),
+            new Pitanje("zemlja u kojoj zivimo?", new List<String> {"aa","bb","srb"}, 2, 5),
+            new Pitanje("Najjaci teniser?", new List<String> {"Djovak","Djokovic","No1e"}, 0, 10),
+            new Pitanje("Najveca opstina u Bg?", new List<String> {"NBG","Vozdovac","Palilula"}, 2, 5),
+            new Pitanje("Najveca zemlja na svetu", new List<String> {"Amerika","Rusija","Kina"}, 1, 5),
+            new Pitanje("Po kom liku se zove anime Naruto?", new List<String> {"Saskeu","Sakuri","Narutu"}, 2, 5),
+        };
+
         public Server()
         {
             serverskiSoket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            trenutnoUlogovanih = 0;
         }
 
         public void Listen()
         {
-            serverskiSoket.Bind(new IPEndPoint(new IPAddress.Parse("127.0.0.1"), 9999));
+            serverskiSoket.Bind(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9999));
             serverskiSoket.Listen();
         }
 

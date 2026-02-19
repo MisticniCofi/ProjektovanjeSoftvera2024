@@ -7,13 +7,37 @@ namespace ServerskaAp
         {
             InitializeComponent();
             s = new Server();
+            dgvKlijenti.DataSource = s.registrovani;
+
+       //     this.Refreshuj();
         }
 
         private void btnPokreni_Click(object sender, EventArgs e)
         {
-            s.Start();
             s.maksUlogovanih = Int32.Parse(txtMaks.Text);
+            Thread serverskaNit = new Thread(s.Start);
+            serverskaNit.IsBackground = true;
+            serverskaNit.Start();
+
             btnPokreni.Enabled = false;
+        }
+
+        public void Refreshuj()
+        {
+            Thread apdejt = new Thread(() =>
+            {
+                while (true)
+                {
+                    Invoke(new Action(() =>
+                    {
+                        dgvKlijenti.Refresh();
+                    }));
+                    Thread.Sleep(10);
+                }
+
+            });
+            apdejt.IsBackground = true;
+            apdejt.Start();
         }
     }
 }

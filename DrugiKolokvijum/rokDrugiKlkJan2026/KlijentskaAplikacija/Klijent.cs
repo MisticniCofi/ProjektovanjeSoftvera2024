@@ -36,13 +36,25 @@ namespace KlijentskaAplikacija
 
         public void Povezi()
         {
+            if(soket.Connected)
+            {
+                return;
+            }
             soket.Connect("127.0.0.1", 9999);
             ser = new Serializer(soket);
         }
 
-        public void Posalji(Operacija operacija, List<Pitanje> pitanja, String tekst,)
+        public void Posalji(Operacija operacija, List<Pitanje>? pitanja, String tekst)
         {
-            Poruka poruka = new Poruka(operacija, pitanja, tekst)
+            Poruka poruka = new Poruka(operacija, pitanja, tekst);
+            ser.Posalji(poruka);
+        }
+
+        public Poruka Primi()
+        {
+            Poruka poruka = ser.Primi();
+
+            return poruka;
         }
     }
 }

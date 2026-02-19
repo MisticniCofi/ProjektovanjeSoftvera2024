@@ -5,6 +5,6 @@
         LOGIN,
         LOGOUT,
         PITANJA,
-        ODGOVOR
+        ODGOVOR,
     }
 }

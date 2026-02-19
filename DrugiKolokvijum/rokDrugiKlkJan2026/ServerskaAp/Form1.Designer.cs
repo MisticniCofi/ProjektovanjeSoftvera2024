@@ -30,6 +30,8 @@
         {
             txtMaks = new TextBox();
             btnPokreni = new Button();
+            dgvKlijenti = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dgvKlijenti).BeginInit();
             SuspendLayout();
             // 
             // txtMaks
@@ -49,15 +51,25 @@
             btnPokreni.UseVisualStyleBackColor = true;
             btnPokreni.Click += btnPokreni_Click;
             // 
+            // dgvKlijenti
+            // 
+            dgvKlijenti.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvKlijenti.Location = new Point(245, 198);
+            dgvKlijenti.Name = "dgvKlijenti";
+            dgvKlijenti.Size = new Size(457, 203);
+            dgvKlijenti.TabIndex = 2;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(dgvKlijenti);
             Controls.Add(btnPokreni);
             Controls.Add(txtMaks);
             Name = "Form1";
             Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)dgvKlijenti).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -66,5 +78,6 @@
 
         private TextBox txtMaks;
         private Button btnPokreni;
+        private DataGridView dgvKlijenti;
     }
 }
