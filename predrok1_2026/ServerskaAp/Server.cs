@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -15,13 +16,13 @@ namespace ServerskaAp
         public List<ClientHandler> klijenti = new List<ClientHandler>();
 
         public int trenutnoUlogovanih;
-
-        public List<User> registrovani = new List<User> {
+        
+        public BindingList<User> registrovani = new BindingList<User> {
             new User("Miroslav", false),
             new User("Perica", false),
             new User("Natasa",false)
         };
-            
+
 
 
         public Server()
@@ -30,10 +31,15 @@ namespace ServerskaAp
 
         }
 
-        public void Start()
+        public void Listen()
         {
             serverskiSoket.Bind(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9999));
             serverskiSoket.Listen();
+        }
+
+        public void Start()
+        {
+            
             trenutnoUlogovanih = 0;
 
             while(true)

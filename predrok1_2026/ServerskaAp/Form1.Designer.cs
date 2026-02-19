@@ -28,32 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
+            btnStart = new Button();
+            dgvKorisnici = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dgvKorisnici).BeginInit();
             SuspendLayout();
             // 
-            // label1
+            // btnStart
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(261, 63);
-            label1.Name = "label1";
-            label1.Size = new Size(90, 15);
-            label1.TabIndex = 0;
-            label1.Text = "Server pokrenut";
+            btnStart.Location = new Point(276, 112);
+            btnStart.Name = "btnStart";
+            btnStart.Size = new Size(75, 23);
+            btnStart.TabIndex = 1;
+            btnStart.Text = "START";
+            btnStart.UseVisualStyleBackColor = true;
+            btnStart.Click += btnStart_Click;
+            // 
+            // dgvKorisnici
+            // 
+            dgvKorisnici.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvKorisnici.Location = new Point(440, 112);
+            dgvKorisnici.Name = "dgvKorisnici";
+            dgvKorisnici.Size = new Size(329, 233);
+            dgvKorisnici.TabIndex = 2;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(label1);
+            Controls.Add(dgvKorisnici);
+            Controls.Add(btnStart);
             Name = "Form1";
             Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)dgvKorisnici).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private Label label1;
+        private Button btnStart;
+        private DataGridView dgvKorisnici;
     }
 }

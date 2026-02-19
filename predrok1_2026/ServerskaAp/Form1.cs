@@ -5,8 +5,15 @@ namespace ServerskaAp
         Server s;
         public Form1()
         {
-           InitializeComponent();
-           s = new Server();
+            InitializeComponent();
+            s = new Server();
+            dgvKorisnici.DataSource = s.registrovani;
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            s.Listen();
+            s.Start();
         }
     }
 }
