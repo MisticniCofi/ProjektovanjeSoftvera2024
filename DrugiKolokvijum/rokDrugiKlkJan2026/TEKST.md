@@ -1,0 +1,11 @@
+-server i klijent su forme
+-prilikom pokretanja servera, unos broja koji predstavlja max broj prijavljenih
+-na serveru u operativnoj memoriji cuva se 5 korisnika (ime, lozinka) 
+-server prihvata klijenta ako: br prijavljenih manji od max broja i nije prijavljen 
+-na serveru se cuva lista od 10 pitanja, svako pitanje ima 3 odgovora, cuva se koji je odgovor tacan i za koliko sekundi mora da se odgovori (5 ili 10 sekundi) 
+-posle logina, otvara se glavna forma koja ima dugme pokreni kviz, kad se klikne to dugme, korisniku se prikazuje 1 od 5 pitanja. ima 3 ponudjena odgovora, korisnik klikne na jedan od ta tri odgovora 
+-ide tajmer (5 ili 10 sek) na formi i ako ne odgovori na vreme, prelazi na sledece pitanje, a ako odgovori prikazuje se jel odgovor tacan ili ne, pa se prelazi na sledece pitanje [ovo je nosilo 6p] ; ako se ne uradi sa tajmerom, nego samo stavimo dugme Sledece pitanje [3p] 
+-na formi se non stop prikazuje redni br pitanja, pitanje, odgovori, br pitanja na kojima je dat tacan odgovor, br pitanja na kojima je netacan odgovor, br gde nije dat odgovor i br poena. Tacan odgovor +4p,  netacan -2p i broj poena ne moze uci u minus 
+-ako je odgovor tacan, uokviriti zeleno, ako je netacno crveno
+-kada se pokrene kviz, nasumicno se bira 5 pitanja [6p] ; ili uzeti prvih 5 pitanja iz liste [3p] 
+-server treba da ima tabelu u kojoj se prikazuju svi prijavljeni na sistem, da li je pokrenuo kviz ili ne, na kom se pitanju trenutno nalazi (-1 ako nije pokrenuo) i broj poena ( ako nije pokrenuo 0) i tabela se stalno azurira
