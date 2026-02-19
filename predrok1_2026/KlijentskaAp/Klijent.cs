@@ -13,6 +13,7 @@ namespace KlijentskaAp
         Socket soket;
         public Serializer serializer;
 
+        public String username;
         public Klijent()
         {
             soket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -23,13 +24,14 @@ namespace KlijentskaAp
 
         //sad treba ove poruke proslediti formi
         //zabo mi mozak
-        public void PrimajPoruke()
+        public Poruka Primi()
         {
-            while (soket.Connected)
-            {
-                Poruka poruka = serializer.Primi<Poruka>();
-            }
-
+            //while (soket.Connected)
+            //{
+            //    Poruka poruka = serializer.Primi<Poruka>();
+            //}
+            Poruka poruka = serializer.Primi<Poruka>();
+            return poruka;
         }
 
         public void Posalji(String s, Operacija o)

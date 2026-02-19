@@ -5,6 +5,10 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerskaAp", "ServerskaAp\ServerskaAp.csproj", "{113342E0-1BFA-4176-A885-27F52C8487D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KlijentskaAp", "KlijentskaAp\KlijentskaAp.csproj", "{86A0DC00-1011-4DAB-A6EB-9191597C2855}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pomocne", "Pomocne\Pomocne.csproj", "{9C555E61-D03A-420E-99AD-A5A4BF2F2256}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{113342E0-1BFA-4176-A885-27F52C8487D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{113342E0-1BFA-4176-A885-27F52C8487D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{113342E0-1BFA-4176-A885-27F52C8487D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86A0DC00-1011-4DAB-A6EB-9191597C2855}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86A0DC00-1011-4DAB-A6EB-9191597C2855}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86A0DC00-1011-4DAB-A6EB-9191597C2855}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86A0DC00-1011-4DAB-A6EB-9191597C2855}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C555E61-D03A-420E-99AD-A5A4BF2F2256}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C555E61-D03A-420E-99AD-A5A4BF2F2256}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C555E61-D03A-420E-99AD-A5A4BF2F2256}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C555E61-D03A-420E-99AD-A5A4BF2F2256}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
